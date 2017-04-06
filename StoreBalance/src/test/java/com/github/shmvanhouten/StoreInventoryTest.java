@@ -45,7 +45,8 @@ public class StoreInventoryTest {
         List<InventoryItem> items = inventory.getInventoryList();
 
         assertThat(items.get(0).getInventoryItemQuantity(), is(80));
-        assertThat(items.get(0).getInventoryItemQuantity(), is(80));
+        assertThat(items.get(0).getProduct().getName(), is("marsBars"));
+        assertThat(items.get(1).getProduct().getName(), is("tomatoSoup"));
     }
 
 }

@@ -8,12 +8,10 @@ package com.github.shmvanhouten;
 
 public class StoreInventory {
 
-
-    public Map<Product, InventoryItem> getInventoryList() {
-        return inventoryList;
-    }
-
     Map<Product, InventoryItem> inventoryList = new HashMap<>();
+
+
+
     public void addInventoryItem(String name, LocalDate expiryDate, Integer quantity){
 
         Product product = new Product(name, expiryDate);
@@ -40,5 +38,12 @@ public class StoreInventory {
             }
         }
         return quantity;
+    }
+    public List<InventoryItem> getInventoryList() {
+        List<InventoryItem> returnList = new ArrayList<>();
+
+        returnList.addAll(inventoryList.values());
+        Collections.sort(returnList);
+        return returnList;
     }
 }

@@ -1,6 +1,6 @@
 package com.github.shmvanhouten;
 
-public class InventoryItem {
+public class InventoryItem implements Comparable<InventoryItem> {
     private final Product product;
     private Integer quantity;
 
@@ -19,4 +19,10 @@ public class InventoryItem {
     public Product getProduct() {
         return product;
     }
+
+    @Override
+    public int compareTo(InventoryItem other) {
+        return this.getProduct().compareTo(other.getProduct());
+    }
 }
+
