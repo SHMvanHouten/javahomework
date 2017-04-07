@@ -24,6 +24,10 @@ public class InventoryItemTest {
         tomatoSoup.addToQuantity(6);
         assertThat(tomatoSoup.getInventoryItemQuantity(), is(21));
     }
-//    @Test
-//    public
+    @Test
+    public void itShouldReturnAStringWithTheInvenoryItemIdentifiers() throws Exception{
+        Product product = new Product("bananas", of(2017,APRIL,17));
+        InventoryItem inventoryItem = new InventoryItem(product,20);
+        assertThat(inventoryItem.toString(), is("InventoryItem {product name = 'bananas', expiryDate = 2017-04-17, quantity = 20}"));
+    }
 }

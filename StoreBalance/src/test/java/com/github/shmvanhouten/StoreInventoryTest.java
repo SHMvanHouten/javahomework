@@ -2,6 +2,7 @@ package com.github.shmvanhouten;
 
 import org.junit.Test;
 
+import java.util.Collection;
 import java.util.List;
 
 import static java.time.LocalDate.of;
@@ -47,6 +48,19 @@ public class StoreInventoryTest {
         assertThat(items.get(0).getInventoryItemQuantity(), is(80));
         assertThat(items.get(0).getProduct().getName(), is("marsBars"));
         assertThat(items.get(1).getProduct().getName(), is("tomatoSoup"));
+        printInventoryItems(items);
+        printProducts(items);
     }
 
+    private void printProducts(List<InventoryItem> items) {
+        for(InventoryItem inventoryItem : items){
+            System.out.println(inventoryItem.getProduct());
+        }
+    }
+
+    private void printInventoryItems(Collection<InventoryItem> items) {
+        for (InventoryItem inventoryItem : items) {
+            System.out.println(inventoryItem);
+        }
+    }
 }
