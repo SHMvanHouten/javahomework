@@ -2,7 +2,7 @@ package com.github.shmvanhouten;
 
 import java.time.LocalDate;
 
-public class Product {
+public class Product implements Comparable<Product>{
     private final String name;
     private final LocalDate expiryDate;
 
@@ -37,7 +37,7 @@ public class Product {
         result = 31 * result + expiryDate.hashCode();
         return result;
     }
-
+    @Override
     public int compareTo(Product other) {
 
         int byProductName = this.getName().compareTo(other.getName());
