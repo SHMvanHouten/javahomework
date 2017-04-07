@@ -46,4 +46,12 @@ public class Product implements Comparable<Product>{
         }
         return this.getExpiryDate().compareTo(other.getExpiryDate());
     }
+
+    @Override
+    public String toString() {
+        return "Product {" +
+                "name = '" + name + '\'' +
+                ", expiryDate = " + expiryDate +
+                '}';
+    }
 }

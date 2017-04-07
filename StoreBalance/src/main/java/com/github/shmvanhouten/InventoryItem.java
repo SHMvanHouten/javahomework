@@ -24,5 +24,7 @@ public class InventoryItem implements Comparable<InventoryItem> {
     public int compareTo(InventoryItem other) {
         return this.getProduct().compareTo(other.getProduct());
     }
+//    @Override
+//    public String toString()
 }
 
