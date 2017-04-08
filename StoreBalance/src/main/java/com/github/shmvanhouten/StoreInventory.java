@@ -1,5 +1,7 @@
 package com.github.shmvanhouten;
 
+        import java.math.BigDecimal;
+        import java.time.Month;
         import java.util.*;
 
 
@@ -44,5 +46,11 @@ public class StoreInventory {
         returnList.addAll(inventoryList.values());
         Collections.sort(returnList);
         return returnList;
+    }
+
+    public BigDecimal getValueOfAllProductsOfExpiryDate(String productName, LocalDate expiryDate, PriceList priceList) {
+        BigDecimal price = priceList.getPrice(productName);
+        Integer quantity = getProductOfExpiryDatesQuantity(productName, expiryDate);
+        return price.multiply(new BigDecimal(quantity));
     }
 }

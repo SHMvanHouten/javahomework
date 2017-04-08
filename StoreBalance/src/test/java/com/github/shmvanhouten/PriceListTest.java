@@ -1,6 +1,5 @@
 package com.github.shmvanhouten;
 
-import org.hamcrest.MatcherAssert;
 import org.junit.Test;
 
 import java.math.BigDecimal;

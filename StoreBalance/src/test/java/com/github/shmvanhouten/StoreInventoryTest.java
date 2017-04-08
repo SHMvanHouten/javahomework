@@ -2,6 +2,7 @@ package com.github.shmvanhouten;
 
 import org.junit.Test;
 
+import java.math.BigDecimal;
 import java.util.Collection;
 import java.util.List;
 
@@ -51,6 +52,25 @@ public class StoreInventoryTest {
         printInventoryItems(items);
         printProducts(items);
     }
+    @Test
+    public void itShouldGiveTheTotalValueOfTheProductsWithThatExpirationDate() throws Exception{
+        StoreInventory inventory = new StoreInventory();
+        inventory.addInventoryItem("tomatoSoup", of(2017,JUNE,30), 20);
+        inventory.addInventoryItem("tomatoSoup", of(2017,JUNE,29), 15);
+        PriceList priceList = new PriceList();
+        BigDecimal tomatoSoupPrice = new BigDecimal("2.30");
+        priceList.inputPrice("tomatoSoup", tomatoSoupPrice);
+        BigDecimal expectedPrice = new BigDecimal("46.00");
+        assertThat(inventory.getValueOfAllProductsOfExpiryDate("tomatoSoup", of(2017,JUNE,30), priceList), is(expectedPrice));
+    }
+
+
+
+
+
+
+
+
 
     private void printProducts(List<InventoryItem> items) {
         for(InventoryItem inventoryItem : items){
