@@ -15,6 +15,7 @@ public class PriceListTest {
         priceList.inputPrice("tomatoSoup", tomatoSoupPrice);
         assertThat(priceList.getPrice("tomatoSoup"), is(tomatoSoupPrice));
     }
+
     @Test
     public void itShouldAddADifferentPriceOfTomatoSoup () throws Exception{
         PriceList priceList = new PriceList();
@@ -22,13 +23,18 @@ public class PriceListTest {
         priceList.inputPrice("tomatoSoup", tomatoSoupPrice);
         assertThat(priceList.getPrice("tomatoSoup"), is(tomatoSoupPrice));
     }
+
     @Test
     public void itShouldReturnTheSecondAddedPriceForTomatoSoup() throws Exception{
         PriceList priceList = new PriceList();
         BigDecimal tomatoSoupPrice = new BigDecimal("2.30");
         BigDecimal newTomatoSoupPrice = new BigDecimal("2.25");
+        BigDecimal beansPrice = new BigDecimal("1.50");
         priceList.inputPrice("tomatoSoup", tomatoSoupPrice);
         priceList.inputPrice("tomatoSoup", newTomatoSoupPrice);
+        priceList.inputPrice("beans", beansPrice);
         assertThat(priceList.getPrice("tomatoSoup"), is(newTomatoSoupPrice));
+        assertThat(priceList.getPrice("beans"), is(beansPrice));
     }
+
 }
