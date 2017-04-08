@@ -61,7 +61,18 @@ public class StoreInventoryTest {
         BigDecimal tomatoSoupPrice = new BigDecimal("2.30");
         priceList.inputPrice("tomatoSoup", tomatoSoupPrice);
         BigDecimal expectedPrice = new BigDecimal("46.00");
-        assertThat(inventory.getValueOfAllProductsOfExpiryDate("tomatoSoup", of(2017,JUNE,30), priceList), is(expectedPrice));
+        assertThat(inventory.getTotalValueOfProductsOfExpiryDate("tomatoSoup", of(2017,JUNE,30), priceList), is(expectedPrice));
+    }
+    @Test
+    public void itShouldGiveTheTotalValueOfAllTheProductsOfThatType() throws Exception{
+        StoreInventory inventory = new StoreInventory();
+        inventory.addInventoryItem("tomatoSoup", of(2017,JUNE,30), 20);
+        inventory.addInventoryItem("tomatoSoup", of(2017,JUNE,29), 15);
+        PriceList priceList = new PriceList();
+        BigDecimal tomatoSoupPrice = new BigDecimal("2.30");
+        priceList.inputPrice("tomatoSoup", tomatoSoupPrice);
+        BigDecimal expectedPrice = new BigDecimal("80.50");
+        assertThat(inventory.getTotalValueOfProducts("tomatoSoup", priceList), is(expectedPrice));
     }
 
 

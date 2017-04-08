@@ -48,9 +48,15 @@ public class StoreInventory {
         return returnList;
     }
 
-    public BigDecimal getValueOfAllProductsOfExpiryDate(String productName, LocalDate expiryDate, PriceList priceList) {
+    public BigDecimal getTotalValueOfProductsOfExpiryDate(String productName, LocalDate expiryDate, PriceList priceList) {
         BigDecimal price = priceList.getPrice(productName);
         Integer quantity = getProductOfExpiryDatesQuantity(productName, expiryDate);
+        return price.multiply(new BigDecimal(quantity));
+    }
+
+    public BigDecimal getTotalValueOfProducts(String productName, PriceList priceList) {
+        BigDecimal price = priceList.getPrice(productName);
+        Integer quantity = getProductTotalQuantity(productName);
         return price.multiply(new BigDecimal(quantity));
     }
 }
