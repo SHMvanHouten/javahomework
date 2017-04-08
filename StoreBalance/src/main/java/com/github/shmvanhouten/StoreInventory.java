@@ -4,7 +4,6 @@ package com.github.shmvanhouten;
 
 
         import java.time.LocalDate;
-        import static java.time.LocalDate.of;
 
 public class StoreInventory {
 
@@ -30,7 +29,7 @@ public class StoreInventory {
         return inventoryList.get(tempProduct).getInventoryItemQuantity();
     }
 
-    public Integer getProductQuantity(String name) {
+    public Integer getProductTotalQuantity(String name) {
         Integer quantity = 0;
         for(Product product : inventoryList.keySet()){
             if(product.getName().equals(name)){

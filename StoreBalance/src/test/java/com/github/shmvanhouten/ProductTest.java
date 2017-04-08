@@ -13,5 +13,6 @@ public class ProductTest {
     public void itShouldReturnAStringWithTheProductIdentifiers()throws Exception{
         Product product = new Product("bananas", of(2017,APRIL,13));
         assertThat(product.toString(), is("Product {name = 'bananas', expiryDate = 2017-04-13}"));
+        System.out.println(product);
     }
 }

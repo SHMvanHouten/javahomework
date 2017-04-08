@@ -33,7 +33,7 @@ public class StoreInventoryTest {
         StoreInventory inventory = new StoreInventory();
         inventory.addInventoryItem("tomatoSoup", of(2017,JUNE,30), 20);
         inventory.addInventoryItem("tomatoSoup", of(2017,JUNE,29), 15);
-        assertThat(inventory.getProductQuantity("tomatoSoup"), is(35));
+        assertThat(inventory.getProductTotalQuantity("tomatoSoup"), is(35));
     }
 
     @Test
