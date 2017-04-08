@@ -73,8 +73,7 @@ public class StoreInventoryTest {
         inventory.addInventoryItem("tomatoSoup", of(2017,JUNE,30), 20);
         inventory.addInventoryItem("tomatoSoup", of(2017,JUNE,29), 15);
         PriceList priceList = new PriceList();
-        BigDecimal tomatoSoupPrice = new BigDecimal("2.30");
-        priceList.inputPrice("tomatoSoup", tomatoSoupPrice);
+        priceList.inputPrice("tomatoSoup", new BigDecimal("2.30"));
         BigDecimal expectedPrice = new BigDecimal("80.50");
         assertThat(inventory.getTotalValueOfProducts("tomatoSoup", priceList), is(expectedPrice));
     }
@@ -103,10 +102,8 @@ public class StoreInventoryTest {
         inventory.addInventoryItem("tomatoSoup", of(2017,JUNE,29), 15);
         inventory.addInventoryItem("beans", of(2017,JUNE,30), 17);
         PriceList priceList = new PriceList();
-        BigDecimal tomatoSoupPrice = new BigDecimal("2.30");
-        BigDecimal beansPrice = new BigDecimal("1.50");
-        priceList.inputPrice("tomatoSoup", tomatoSoupPrice);
-        priceList.inputPrice("beans", beansPrice);
+        priceList.inputPrice("tomatoSoup", new BigDecimal("2.30"));
+        priceList.inputPrice("beans", new BigDecimal("1.50"));
         BigDecimal expectedPrice = new BigDecimal("71.50");
         assertThat(inventory.getTotalValueOfAllProductsOfExpiryDate(of(2017,JUNE,30),priceList),is(expectedPrice));
     }
