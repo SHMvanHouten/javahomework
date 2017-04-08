@@ -79,21 +79,7 @@ public class StoreInventoryTest {
         assertThat(inventory.getTotalValueOfProducts("tomatoSoup", priceList), is(expectedPrice));
     }
 
-    @Ignore
-    @Test
-    public void itShouldGiveTheTotalValueOfAllTheProductsOfAnExpiryDate() throws Exception{
-        StoreInventory inventory = new StoreInventory();
-        inventory.addInventoryItem("tomatoSoup", of(2017,JUNE,30), 20);
-        inventory.addInventoryItem("tomatoSoup", of(2017,JUNE,29), 15);
-        inventory.addInventoryItem("beans", of(2017,JUNE,30), 17);
-        PriceList priceList = new PriceList();
-        BigDecimal tomatoSoupPrice = new BigDecimal("2.30");
-        BigDecimal beansPrice = new BigDecimal("1.50");
-        priceList.inputPrice("tomatoSoup", tomatoSoupPrice);
-        priceList.inputPrice("beans", beansPrice);
-        BigDecimal expectedPrice = new BigDecimal("71.50");
-        assertThat(inventory.getTotalValueOfAllProductsOfExpiryDate(of(2017,JUNE,30),priceList),is(expectedPrice));
-    }
+
     @Test
     public void itShouldGiveAListOfAllTheProductsOfAnExpiryDate() throws Exception{
         StoreInventory inventory = new StoreInventory();
@@ -110,7 +96,20 @@ public class StoreInventoryTest {
         assertThat(expiryDateList.get(3).getName(), is("tomatoSoup"));
     }
 
-
+    @Test
+    public void itShouldGiveTheTotalValueOfAllTheProductsOfAnExpiryDate() throws Exception{
+        StoreInventory inventory = new StoreInventory();
+        inventory.addInventoryItem("tomatoSoup", of(2017,JUNE,30), 20);
+        inventory.addInventoryItem("tomatoSoup", of(2017,JUNE,29), 15);
+        inventory.addInventoryItem("beans", of(2017,JUNE,30), 17);
+        PriceList priceList = new PriceList();
+        BigDecimal tomatoSoupPrice = new BigDecimal("2.30");
+        BigDecimal beansPrice = new BigDecimal("1.50");
+        priceList.inputPrice("tomatoSoup", tomatoSoupPrice);
+        priceList.inputPrice("beans", beansPrice);
+        BigDecimal expectedPrice = new BigDecimal("71.50");
+        assertThat(inventory.getTotalValueOfAllProductsOfExpiryDate(of(2017,JUNE,30),priceList),is(expectedPrice));
+    }
 
 
 

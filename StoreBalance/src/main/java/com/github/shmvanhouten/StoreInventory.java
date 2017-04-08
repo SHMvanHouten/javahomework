@@ -61,8 +61,15 @@ public class StoreInventory {
     }
 
     public BigDecimal getTotalValueOfAllProductsOfExpiryDate(LocalDate expiryDate, PriceList priceList) {
-
-        return new BigDecimal("32");
+        BigDecimal totalValue = new BigDecimal("0");
+        for (Map.Entry<Product, InventoryItem> entry: inventoryList.entrySet()) {
+            Product tempProduct = entry.getKey();
+            if(tempProduct.getExpiryDate().equals(expiryDate)){
+                BigDecimal value = getTotalValueOfProductsOfExpiryDate(tempProduct.getName(), expiryDate, priceList);
+                totalValue = totalValue.add(value);
+            }
+        }
+        return totalValue;
     }
 
     public List<Product> getListOfAllProductsOfAnExpiryDate(LocalDate expiryDate) {
