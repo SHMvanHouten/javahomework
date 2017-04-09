@@ -1,7 +1,6 @@
 package com.github.shmvanhouten;
 
         import java.math.BigDecimal;
-        import java.time.Month;
         import java.util.*;
 
 
@@ -9,7 +8,7 @@ package com.github.shmvanhouten;
 
 public class StoreInventory {
 
-    Map<Product, InventoryItem> inventoryList = new HashMap<>();
+    private Map<Product, InventoryItem> inventoryList = new HashMap<>();
 
 
 
@@ -62,10 +61,9 @@ public class StoreInventory {
 
     public BigDecimal getTotalValueOfAllProductsOfExpiryDate(LocalDate expiryDate, PriceList priceList) {
         BigDecimal totalValue = new BigDecimal("0");
-        for (Map.Entry<Product, InventoryItem> entry: inventoryList.entrySet()) {
-            Product tempProduct = entry.getKey();
-            if(tempProduct.getExpiryDate().equals(expiryDate)){
-                BigDecimal value = getTotalValueOfProductsOfExpiryDate(tempProduct.getName(), expiryDate, priceList);
+        for (Product product: inventoryList.keySet()) {
+            if(product.getExpiryDate().equals(expiryDate)){
+                BigDecimal value = getTotalValueOfProductsOfExpiryDate(product.getName(), expiryDate, priceList);
                 totalValue = totalValue.add(value);
             }
         }
@@ -74,10 +72,9 @@ public class StoreInventory {
 
     public List<Product> getListOfAllProductsOfAnExpiryDate(LocalDate expiryDate) {
         List<Product> listOfAllProductsOfExpiryDate = new ArrayList<>();
-        for (Map.Entry<Product, InventoryItem> product: inventoryList.entrySet()) {
-            Product tempProduct = product.getKey();
-            if(tempProduct.getExpiryDate().equals(expiryDate)){
-                listOfAllProductsOfExpiryDate.add(tempProduct);
+        for (Product product: inventoryList.keySet()) {
+            if(product.getExpiryDate().equals(expiryDate)){
+                listOfAllProductsOfExpiryDate.add(product);
             }
         }
         return listOfAllProductsOfExpiryDate;
