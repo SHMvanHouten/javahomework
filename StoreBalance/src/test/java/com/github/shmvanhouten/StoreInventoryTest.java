@@ -1,5 +1,6 @@
 package com.github.shmvanhouten;
 
+import org.hamcrest.number.BigDecimalCloseTo;
 import org.junit.Ignore;
 import org.junit.Test;
 
@@ -9,8 +10,7 @@ import java.util.Collections;
 import java.util.List;
 
 import static java.time.LocalDate.of;
-import static java.time.Month.APRIL;
-import static java.time.Month.JUNE;
+import static java.time.Month.*;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 
@@ -106,6 +106,25 @@ public class StoreInventoryTest {
         priceList.inputPrice("beans", new BigDecimal("1.50"));
         BigDecimal expectedPrice = new BigDecimal("71.50");
         assertThat(inventory.getTotalValueOfAllProductsOfExpiryDate(of(2017,JUNE,30),priceList),is(expectedPrice));
+    }
+
+    @Test
+    public void itShouldGiveTheTotalValueOfTheEntireStock() throws Exception{
+        StoreInventory inventory = new StoreInventory();
+        inventory.addInventoryItem("tomatoSoup", of(2017,JUNE,30), 20);
+        inventory.addInventoryItem("tomatoSoup", of(2017,MAY,15), 15);
+        inventory.addInventoryItem("beans", of(2017,AUGUST,10), 17);
+        inventory.addInventoryItem("cola", of(2017,JUNE,30), 13);
+        inventory.addInventoryItem("cola", of(2017,SEPTEMBER,30), 30);
+        inventory.addInventoryItem("sprite", of(2017,DECEMBER,30), 28);
+        inventory.addInventoryItem("bread", of(2017,APRIL,15), 28);
+        PriceList priceList = new PriceList();
+        priceList.inputPrice("tomatoSoup", new BigDecimal("2.30"));
+        priceList.inputPrice("beans", new BigDecimal("1.35"));
+        priceList.inputPrice("cola", new BigDecimal("1.25"));
+        priceList.inputPrice("sprite", new BigDecimal("1.25"));
+        priceList.inputPrice("bread", new BigDecimal("1.59"));
+        assertThat(inventory.getInventoryTotalValue(priceList), is(new BigDecimal("236.72")));
     }
 
 

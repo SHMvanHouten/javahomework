@@ -79,4 +79,12 @@ public class StoreInventory {
         }
         return listOfAllProductsOfExpiryDate;
     }
+
+    public BigDecimal getInventoryTotalValue(PriceList priceList) {
+        BigDecimal totalValue = new BigDecimal("0");
+        for(Product product: inventoryList.keySet()){
+            totalValue = totalValue.add(this.getTotalValueOfProductsOfExpiryDate(product.getName(), product.getExpiryDate(), priceList));
+        }
+        return totalValue;
+    }
 }
