@@ -5,7 +5,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class PriceList {
-    public Map<String, BigDecimal> priceList =  new HashMap<>();
+    private Map<String, BigDecimal> priceList =  new HashMap<>();
     public void inputPrice(String productName, BigDecimal price) {
         priceList.put(productName, price);
     }
