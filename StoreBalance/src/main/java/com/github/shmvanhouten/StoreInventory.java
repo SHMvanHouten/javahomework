@@ -86,13 +86,13 @@ public class StoreInventory {
     }
 
     public List<InventoryItem> removeAllEntriesOfExpiryDate(LocalDate expiryDate) {
-        List<InventoryItem> listOfAllProductsOfExpiryDate = new ArrayList<>();
-        for (Product product: inventoryList.keySet()) {
-            if(product.getExpiryDate().equals(expiryDate)){
-                listOfAllProductsOfExpiryDate.add(inventoryList.get(product));
-            }
+        List<InventoryItem> listOfAllInventoryItemsOfExpiryDate = new ArrayList<>();
+        List<Product> listOfAllProductItemsOfExpiryDate = getListOfAllProductsOfAnExpiryDate(expiryDate);
+        for (Product product: listOfAllProductItemsOfExpiryDate) {
+            listOfAllInventoryItemsOfExpiryDate.add(inventoryList.get(product));
+            removeEntry(product);
         }
-        return listOfAllProductsOfExpiryDate;
+        return listOfAllInventoryItemsOfExpiryDate;
     }
 
     public void removeEntry(Product product) {

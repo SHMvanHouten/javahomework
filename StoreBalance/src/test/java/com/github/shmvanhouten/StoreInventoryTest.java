@@ -114,7 +114,22 @@ public class StoreInventoryTest {
         fillUpThePriceList(priceList);
         assertThat(inventory.getInventoryTotalValue(priceList, "eur"), is(new Money("236.72", "eur")));
     }
-    @Ignore
+
+    @Test
+    public void itShouldRemoveAnItemFromTheInventory() throws Exception{
+        StoreInventory inventory = new StoreInventory();
+        inventory.addInventoryItem("tomatoSoup", of(2017,APRIL,14), 20);
+        inventory.addInventoryItem("sprite", of(2017,APRIL,14), 12);
+
+        StoreInventory testInventory = new StoreInventory();
+        testInventory.addInventoryItem("sprite", of(2017,APRIL,14), 12);
+
+        inventory.removeEntry(new Product("tomatoSoup", of(2017,APRIL,14)));
+
+        assertThat(inventory.getInventoryList().size(), is(testInventory.getInventoryList().size()));
+        assertThat(inventory.getInventoryList().get(0).toString(), is(testInventory.getInventoryList().get(0).toString()));
+    }
+
     @Test
     public void itShouldRemoveAllItemsFromAnExpiryDateFromTheInventoryAndPutItInAnExpiredProductList() throws Exception{
         StoreInventory inventory = new StoreInventory();
@@ -137,23 +152,8 @@ public class StoreInventoryTest {
         tempInventory.addInventoryItem("bread", of(2017,APRIL,14), 9);
         List<InventoryItem> testList = tempInventory.getInventoryList();
 
-        assertThat(inventory.getInventoryList(), is(testInventory));
-        assertThat(listOfExpiredProducts, is(testList));
-    }
-
-    @Test
-    public void itShouldRemoveAnItemFromTheInventory() throws Exception{
-        StoreInventory inventory = new StoreInventory();
-        inventory.addInventoryItem("tomatoSoup", of(2017,APRIL,14), 20);
-        inventory.addInventoryItem("sprite", of(2017,APRIL,14), 12);
-
-        StoreInventory testInventory = new StoreInventory();
-        testInventory.addInventoryItem("sprite", of(2017,APRIL,14), 12);
-
-        inventory.removeEntry(new Product("tomatoSoup", of(2017,APRIL,14)));
-
         assertThat(inventory.getInventoryList().size(), is(testInventory.getInventoryList().size()));
-        assertThat(inventory.getInventoryList().get(0).toString(), is(testInventory.getInventoryList().get(0).toString()));
+        assertThat(listOfExpiredProducts.size(), is(testList.size()));
     }
 
 
