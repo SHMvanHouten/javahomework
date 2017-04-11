@@ -35,4 +35,8 @@ public class PracticeTest {
         Practice test = new Practice();
         assertThat(test.changeAllLettersToOppositeCase("HeLlo"), is("hElLO"));
     }
+    @Test
+    public void itShouldSayIfANumberIsASquareOrNot() throws Exception{
+        assertThat(Practice.isSquare(26), is(false));
+    }
 }
