@@ -1,6 +1,5 @@
 package com.github.shmvanhouten;
 
-        import javax.print.DocFlavor;
         import java.util.*;
 
 
