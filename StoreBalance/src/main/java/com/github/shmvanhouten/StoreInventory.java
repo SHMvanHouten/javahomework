@@ -1,6 +1,6 @@
 package com.github.shmvanhouten;
 
-        import java.math.BigDecimal;
+        import javax.print.DocFlavor;
         import java.util.*;
 
 
@@ -47,23 +47,23 @@ public class StoreInventory {
         return returnList;
     }
 
-    public BigDecimal getTotalValueOfProductsOfExpiryDate(String productName, LocalDate expiryDate, PriceList priceList) {
-        BigDecimal price = priceList.getPrice(productName);
+    public Money getTotalValueOfProductsOfExpiryDate(String productName, LocalDate expiryDate, PriceList priceList) {
+        Money price = priceList.getPrice(productName);
         Integer quantity = getProductOfExpiryDatesQuantity(productName, expiryDate);
-        return price.multiply(new BigDecimal(quantity));
+        return price.multiply(quantity);
     }
 
-    public BigDecimal getTotalValueOfProducts(String productName, PriceList priceList) {
-        BigDecimal price = priceList.getPrice(productName);
+    public Money getTotalValueOfProducts(String productName, PriceList priceList) {
+        Money price = priceList.getPrice(productName);
         Integer quantity = getProductTotalQuantity(productName);
-        return price.multiply(new BigDecimal(quantity));
+        return price.multiply(quantity);
     }
 
-    public BigDecimal getTotalValueOfAllProductsOfExpiryDate(LocalDate expiryDate, PriceList priceList) {
-        BigDecimal totalValue = new BigDecimal("0");
+    public Money getTotalValueOfAllProductsOfExpiryDate(LocalDate expiryDate, PriceList priceList, String currency) {
+        Money totalValue = new Money("0", currency);
         for (Product product: inventoryList.keySet()) {
             if(product.getExpiryDate().equals(expiryDate)){
-                BigDecimal value = getTotalValueOfProductsOfExpiryDate(product.getName(), expiryDate, priceList);
+                Money value = getTotalValueOfProductsOfExpiryDate(product.getName(), expiryDate, priceList);
                 totalValue = totalValue.add(value);
             }
         }
@@ -80,8 +80,8 @@ public class StoreInventory {
         return listOfAllProductsOfExpiryDate;
     }
 
-    public BigDecimal getInventoryTotalValue(PriceList priceList) {
-        BigDecimal totalValue = new BigDecimal("0");
+    public Money getInventoryTotalValue(PriceList priceList, String currency) {
+        Money totalValue = new Money("0", currency);
         for(Product product: inventoryList.keySet()){
             totalValue = totalValue.add(this.getTotalValueOfProductsOfExpiryDate(product.getName(), product.getExpiryDate(), priceList));
         }

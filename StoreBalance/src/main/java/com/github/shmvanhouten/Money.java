@@ -30,11 +30,6 @@ public class Money {
     }
 
     @Override
-    public String toString() {
-        return amount.toString().concat(" ").concat(currency);
-    }
-
-    @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
@@ -44,6 +39,16 @@ public class Money {
         if (amount != null ? !amount.equals(money.amount) : money.amount != null) return false;
         return currency != null ? currency.equals(money.currency) : money.currency == null;
     }
+
+    public String getCurrency() {
+        return currency;
+    }
+
+    @Override
+    public String toString() {
+        return amount.toString().concat(" ").concat(currency);
+    }
+
 
     @Override
     public int hashCode() {

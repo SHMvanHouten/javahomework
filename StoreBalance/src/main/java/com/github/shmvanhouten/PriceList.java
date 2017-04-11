@@ -1,16 +1,15 @@
 package com.github.shmvanhouten;
 
-import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.Map;
 
 public class PriceList {
-    private Map<String, BigDecimal> priceList =  new HashMap<>();
-    public void inputPrice(String productName, BigDecimal price) {
+    private Map<String, Money> priceList =  new HashMap<>();
+    public void inputPrice(String productName, Money price) {
         priceList.put(productName, price);
     }
 
-    public BigDecimal getPrice(String productName) {
+    public Money getPrice(String productName) {
         return priceList.get(productName);
     }
 }
