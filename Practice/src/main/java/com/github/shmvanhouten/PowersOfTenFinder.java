@@ -11,7 +11,7 @@ public class PowersOfTenFinder {
                 for(int j = 0; j < i; j++){
                     tempString = tempString.append("0");
                 }
-                outputString = tempString.append(" + " + outputString);
+                outputString = tempString.append(" + ").append(outputString);
             }
         }
         outputString = outputString.delete(outputString.length()-3, outputString.length());
