@@ -1,8 +1,6 @@
 package com.github.shmvanhouten;
 
         import java.util.*;
-
-
         import java.time.LocalDate;
 
 public class StoreInventory {
@@ -85,5 +83,19 @@ public class StoreInventory {
             totalValue = totalValue.add(this.getTotalValueOfProductsOfExpiryDate(product.getName(), product.getExpiryDate(), priceList));
         }
         return totalValue;
+    }
+
+    public List<InventoryItem> removeAllEntriesOfExpiryDate(LocalDate expiryDate) {
+        List<InventoryItem> listOfAllProductsOfExpiryDate = new ArrayList<>();
+        for (Product product: inventoryList.keySet()) {
+            if(product.getExpiryDate().equals(expiryDate)){
+                listOfAllProductsOfExpiryDate.add(inventoryList.get(product));
+            }
+        }
+        return listOfAllProductsOfExpiryDate;
+    }
+
+    public void removeEntry(Product product) {
+        inventoryList.remove(product);
     }
 }

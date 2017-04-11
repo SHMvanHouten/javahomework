@@ -2,6 +2,7 @@ package com.github.shmvanhouten;
 
 import java.math.BigDecimal;
 
+
 public class Money {
     private BigDecimal amount;
     private String currency;

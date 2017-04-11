@@ -109,6 +109,65 @@ public class StoreInventoryTest {
     @Test
     public void itShouldGiveTheTotalValueOfTheEntireStock() throws Exception{
         StoreInventory inventory = new StoreInventory();
+        PriceList priceList = new PriceList();
+        fillUpTheInventory(inventory);
+        fillUpThePriceList(priceList);
+        assertThat(inventory.getInventoryTotalValue(priceList, "eur"), is(new Money("236.72", "eur")));
+    }
+    @Ignore
+    @Test
+    public void itShouldRemoveAllItemsFromAnExpiryDateFromTheInventoryAndPutItInAnExpiredProductList() throws Exception{
+        StoreInventory inventory = new StoreInventory();
+        PriceList priceList = new PriceList();
+        fillUpTheInventory(inventory);
+        fillUpThePriceList(priceList);
+        inventory.addInventoryItem("tomatoSoup", of(2017,APRIL,14), 20);
+        inventory.addInventoryItem("sprite", of(2017,APRIL,14), 12);
+        inventory.addInventoryItem("cola", of(2017,APRIL,14), 23);
+        inventory.addInventoryItem("bread", of(2017,APRIL,14), 9);
+        List<InventoryItem> listOfExpiredProducts = inventory.removeAllEntriesOfExpiryDate(of(2017,APRIL,14));
+
+        StoreInventory testInventory = new StoreInventory();
+        fillUpTheInventory(testInventory);
+
+        StoreInventory tempInventory = new StoreInventory();
+        tempInventory.addInventoryItem("tomatoSoup", of(2017,APRIL,14), 20);
+        tempInventory.addInventoryItem("sprite", of(2017,APRIL,14), 12);
+        tempInventory.addInventoryItem("cola", of(2017,APRIL,14), 23);
+        tempInventory.addInventoryItem("bread", of(2017,APRIL,14), 9);
+        List<InventoryItem> testList = tempInventory.getInventoryList();
+
+        assertThat(inventory.getInventoryList(), is(testInventory));
+        assertThat(listOfExpiredProducts, is(testList));
+    }
+
+    @Test
+    public void itShouldRemoveAnItemFromTheInventory() throws Exception{
+        StoreInventory inventory = new StoreInventory();
+        inventory.addInventoryItem("tomatoSoup", of(2017,APRIL,14), 20);
+        inventory.addInventoryItem("sprite", of(2017,APRIL,14), 12);
+
+        StoreInventory testInventory = new StoreInventory();
+        testInventory.addInventoryItem("sprite", of(2017,APRIL,14), 12);
+
+        inventory.removeEntry(new Product("tomatoSoup", of(2017,APRIL,14)));
+
+        assertThat(inventory.getInventoryList().size(), is(testInventory.getInventoryList().size()));
+        assertThat(inventory.getInventoryList().get(0).toString(), is(testInventory.getInventoryList().get(0).toString()));
+    }
+
+
+
+    private void fillUpThePriceList(PriceList priceList) {
+        priceList.inputPrice("tomatoSoup", new Money("2.30", "eur"));
+        priceList.inputPrice("beans", new Money("1.35", "eur"));
+        priceList.inputPrice("cola", new Money("1.25", "eur"));
+        priceList.inputPrice("sprite", new Money("1.25", "eur"));
+        priceList.inputPrice("bread", new Money("1.59", "eur"));
+    }
+
+
+    private void fillUpTheInventory(StoreInventory inventory) {
         inventory.addInventoryItem("tomatoSoup", of(2017,JUNE,30), 20);
         inventory.addInventoryItem("tomatoSoup", of(2017,MAY,15), 15);
         inventory.addInventoryItem("beans", of(2017,AUGUST,10), 17);
@@ -116,19 +175,7 @@ public class StoreInventoryTest {
         inventory.addInventoryItem("cola", of(2017,SEPTEMBER,30), 30);
         inventory.addInventoryItem("sprite", of(2017,DECEMBER,30), 28);
         inventory.addInventoryItem("bread", of(2017,APRIL,15), 28);
-        PriceList priceList = new PriceList();
-        priceList.inputPrice("tomatoSoup", new Money("2.30", "eur"));
-        priceList.inputPrice("beans", new Money("1.35", "eur"));
-        priceList.inputPrice("cola", new Money("1.25", "eur"));
-        priceList.inputPrice("sprite", new Money("1.25", "eur"));
-        priceList.inputPrice("bread", new Money("1.59", "eur"));
-        assertThat(inventory.getInventoryTotalValue(priceList, "eur"), is(new Money("236.72", "eur")));
     }
-
-
-
-
-
 
 
     private void printProducts(List<InventoryItem> items) {
