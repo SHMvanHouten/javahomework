@@ -25,7 +25,7 @@ public class Money {
 
     @Override
     public String toString() {
-        return amount.toString().concat(currency);
+        return amount.toString().concat(" ").concat(currency);
     }
 
     @Override
@@ -47,4 +47,7 @@ public class Money {
     }
 
 
+    public Money minus(Money amountToSubtract) {
+        return new Money(amount.subtract(amountToSubtract.getAmount()).toString(), currency);
+    }
 }

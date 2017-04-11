@@ -26,4 +26,11 @@ public class MoneyTest {
         Money tomatoSoupPrice = new Money("3.23", "eur");
         assertThat(tomatoSoupPrice.multiply(10), is(new Money("32.30", "eur")));
     }
+
+    @Test
+    public void itShouldSubtractOneMoneyAmountFromAnother() throws Exception{
+        Money valueOfThreeCansOfTomatoSoup = new Money("3.23", "eur").multiply(3);
+        Money valueOfOneCanOfTomatoSoup = new Money("3.23", "eur");
+        assertThat(valueOfThreeCansOfTomatoSoup.minus(valueOfOneCanOfTomatoSoup),is(new Money("6.46", "eur")));
+    }
 }
