@@ -154,6 +154,11 @@ public class StoreInventoryTest {
 
         assertThat(inventory.getInventoryList().size(), is(testInventory.getInventoryList().size()));
         assertThat(listOfExpiredProducts.size(), is(testList.size()));
+
+
+        for (InventoryItem inventoryItem:testInventory.getInventoryList()) {
+            assertThat(inventoryItem.getInventoryItemQuantity(), is(testInventory.getInventoryItem(inventoryItem.getProduct()).getInventoryItemQuantity()));
+        }
     }
 
 

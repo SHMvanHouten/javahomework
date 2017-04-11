@@ -98,4 +98,8 @@ public class StoreInventory {
     public void removeEntry(Product product) {
         inventoryList.remove(product);
     }
+
+    public InventoryItem getInventoryItem(Product product) {
+        return inventoryList.get(product);
+    }
 }
