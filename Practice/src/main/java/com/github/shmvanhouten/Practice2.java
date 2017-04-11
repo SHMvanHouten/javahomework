@@ -8,6 +8,14 @@ import java.util.List;
 public class Practice2 {
 
     public int getDecimalValue(List<Integer> binary) {
-        return binary.get(0);
+        int decimalValue = 0;
+        int binaryLength = binary.size();
+        int valueOfBinaryDigitInDecimal = 1;
+        System.out.println(Math.pow(binary.get(0), binaryLength));
+        for(int i = binaryLength - 1; i >= 0; i--){
+            decimalValue += (valueOfBinaryDigitInDecimal) * binary.get(i);
+            valueOfBinaryDigitInDecimal *= 2;
+        }
+        return decimalValue;
     }
 }
