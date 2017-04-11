@@ -11,10 +11,7 @@ public class MoneyTest {
     @Test
     public void itShouldAcceptADecimalNumberAndACurrency() throws Exception{
         Money tomatoSoupPrice = new Money("3.23" , "eur");
-        Money colaPrice = new Money("1.75", "eur");
         assertThat(tomatoSoupPrice.getAmount(), is(new BigDecimal("3.23")));
-        BigDecimal mfmf = new BigDecimal("32");
-        System.out.println(mfmf.doubleValue());
     }
 
     @Test
@@ -22,5 +19,11 @@ public class MoneyTest {
         Money tomatoSoupPrice = new Money("3.23", "eur");
         Money colaPrice = new Money("1.75", "eur");
         assertThat(tomatoSoupPrice.add(colaPrice), is(new Money("4.98", "eur")));
+    }
+
+    @Test
+    public void itShouldMultiplyAMoneyObjectTogether() throws Exception{
+        Money tomatoSoupPrice = new Money("3.23", "eur");
+        assertThat(tomatoSoupPrice.multiply(10), is(new Money("32.30", "eur")));
     }
 }

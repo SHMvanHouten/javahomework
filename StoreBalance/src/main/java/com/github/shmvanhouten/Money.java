@@ -18,6 +18,11 @@ public class Money {
         return new Money(amount.add(amountToAdd.getAmount()).toString(), currency);
     }
 
+    public Money multiply(Integer numberToMultiplyWith) {
+        String newValue = amount.multiply(new BigDecimal(numberToMultiplyWith)).toString();
+        return new Money(newValue, currency);
+    }
+
     @Override
     public String toString() {
         return amount.toString().concat(currency);
@@ -40,4 +45,6 @@ public class Money {
         result = 31 * result + (currency != null ? currency.hashCode() : 0);
         return result;
     }
+
+
 }
