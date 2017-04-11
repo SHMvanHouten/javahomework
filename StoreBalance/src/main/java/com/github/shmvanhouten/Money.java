@@ -15,12 +15,18 @@ public class Money {
     }
 
     public Money add(Money amountToAdd) {
-        return new Money(amount.add(amountToAdd.getAmount()).toString(), currency);
+        BigDecimal returnValue = amount.add(amountToAdd.getAmount());
+        return new Money(returnValue.toString(), currency);
+    }
+
+    public Money minus(Money amountToSubtract) {
+
+        return new Money(amount.subtract(amountToSubtract.getAmount()).toString(), currency);
     }
 
     public Money multiply(Integer numberToMultiplyWith) {
-        String newValue = amount.multiply(new BigDecimal(numberToMultiplyWith)).toString();
-        return new Money(newValue, currency);
+        BigDecimal returnValue = amount.multiply(new BigDecimal(numberToMultiplyWith));
+        return new Money(returnValue.toString(), currency);
     }
 
     @Override
@@ -47,7 +53,4 @@ public class Money {
     }
 
 
-    public Money minus(Money amountToSubtract) {
-        return new Money(amount.subtract(amountToSubtract.getAmount()).toString(), currency);
-    }
 }
