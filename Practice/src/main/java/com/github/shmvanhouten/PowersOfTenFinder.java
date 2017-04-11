@@ -1,19 +1,20 @@
 package com.github.shmvanhouten;
 
 public class PowersOfTenFinder {
-    public String getStringOfWrittenOutPowersOfTen(int number) {
-        String numberStringReversed = new StringBuilder(Integer.toString(number)).reverse().toString();
-        String outputString = Character.toString(numberStringReversed.charAt(0));
-        for (int i = 1; i<numberStringReversed.length(); i++) {
-            char digit = numberStringReversed.charAt(i);
+    public String getStringOfWrittenOutPowersOfTen(int num) {
+        StringBuilder numberStringReversed = new StringBuilder(Integer.toString(num)).reverse();
+        StringBuilder outputString = new StringBuilder();
+        for (int i = 0; i<numberStringReversed.length(); i++) {
+            int digit = Character.getNumericValue(numberStringReversed.charAt(i));
             if(digit>0){
-                String tempString = Character.toString(digit);
+                StringBuilder tempString = new StringBuilder(Character.toString(numberStringReversed.charAt(i)));
                 for(int j = 0; j < i; j++){
-                    tempString = tempString.concat("0");
+                    tempString = tempString.append("0");
                 }
-                outputString = tempString.concat(" + " + outputString);
+                outputString = tempString.append(" + " + outputString);
             }
         }
-        return outputString;
+        outputString = outputString.delete(outputString.length()-3, outputString.length());
+        return outputString.toString();
     }
 }

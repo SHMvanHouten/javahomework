@@ -11,5 +11,7 @@ public class PowersOfTenFinderTest {
         PowersOfTenFinder finder = new PowersOfTenFinder();
         assertThat(finder.getStringOfWrittenOutPowersOfTen(12), is("10 + 2"));
         assertThat(finder.getStringOfWrittenOutPowersOfTen(132), is("100 + 30 + 2"));
+        assertThat(finder.getStringOfWrittenOutPowersOfTen(102), is("100 + 2"));
+        assertThat(finder.getStringOfWrittenOutPowersOfTen(100), is("100"));
     }
 }
