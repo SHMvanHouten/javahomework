@@ -66,4 +66,34 @@ public class Practice {
         }
         return data;
     }
+
+    public String getPhoneNumber(int[] numbers) {
+        StringBuilder phoneNumber = new StringBuilder("(");
+            for(int i =0; i<3; i++){
+                phoneNumber.append(numbers[i]);
+            }
+        phoneNumber.append(") ");
+        for(int i = 3; i<6; i++){
+            phoneNumber.append(numbers[i]);
+        }
+        phoneNumber.append('-');
+        for(int i = 6; i<numbers.length; i++){
+            phoneNumber.append(numbers[i]);
+        }
+
+        return phoneNumber.toString();
+    }
+
+    public static String spinWordsOver4LettersLong(String sentence) {
+        String[] sentenceArray = sentence.split(" ");
+        StringBuilder spinnedSentence = new StringBuilder();
+        for (String word:sentenceArray) {
+            if (word.length()>4){
+                spinnedSentence.append(new StringBuilder(word).reverse()).append(' ');
+            }else{
+                spinnedSentence.append(word).append(' ');
+            }
+        }
+        return spinnedSentence.toString().trim();
+    }
 }

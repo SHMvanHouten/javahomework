@@ -58,4 +58,17 @@ public class PracticeTest {
         int[] testArray2 = new int[]{17,18,19,20,21,22,23,24,9,10,11,12,13,14,15,16,1,2,3,4,5,6,7,8};
         assertThat(practice.reverse8BitArray(inputArray2), is(testArray2));
     }
+
+    @Test
+    public void itShouldTurnTheIntArrayIntoAPhoneNumberString() throws Exception {
+        Practice practice = new Practice();
+        int[] inputArray = new int[]{1, 2, 3, 4, 5, 6, 7, 8, 9, 0};
+        assertThat(practice.getPhoneNumber(inputArray),is("(123) 456-7890"));
+    }
+
+    @Test
+    public void spinWordsOver4LettersLong() throws Exception {
+        String sentence = "Stop spinning my words";
+        assertThat(Practice.spinWordsOver4LettersLong(sentence), is("Stop gninnips my sdrow"));
+    }
 }
