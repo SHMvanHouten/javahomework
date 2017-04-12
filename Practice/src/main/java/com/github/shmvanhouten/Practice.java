@@ -1,6 +1,7 @@
 package com.github.shmvanhouten;
 
 
+
 public class Practice {
     public String getPositionInAlphabet(char alphabet) {
         Character referenceChar = '`';
@@ -41,5 +42,28 @@ public class Practice {
 
     public static boolean isSquare(int n) {
         return Math.sqrt(n) % 1 == 0;
+    }
+
+    public String changeFirstLetterOfEachWordToUpperCase(String string) {
+        StringBuilder outputString = new StringBuilder("");
+        String [] stringArray = string.split(" ");
+        for (String word : stringArray) {
+            StringBuilder wordBuilder = new StringBuilder(word);
+            wordBuilder.setCharAt(0, Character.toUpperCase(wordBuilder.charAt(0)));
+            outputString.append(wordBuilder).append(' ');
+        }
+        return outputString.toString().trim();
+    }
+
+    public int[] reverse8BitArray(int[] data) {
+        for(int i=0; i<data.length/2; i+=8){
+            int[] tempIntArray = new int[8];
+            for(int j = 0; j<8; j++){
+                tempIntArray[j] = data[i+j];
+                data[i + j] = data[data.length - (i + (8 - j))];
+                data[data.length - (i+(8-j))] = tempIntArray[j];
+            }
+        }
+        return data;
     }
 }
