@@ -96,4 +96,15 @@ public class Practice {
         }
         return spinnedSentence.toString().trim();
     }
+
+    public static int getAmountOfOnesInBinaryRepresentation(int number) {
+        String binaryNumber = Integer.toBinaryString(number);
+        int oneCounter = 0;
+        for (char character :binaryNumber.toCharArray()) {
+            if(character == '1'){
+                oneCounter += 1;
+            }
+        }
+        return oneCounter;
+    }
 }

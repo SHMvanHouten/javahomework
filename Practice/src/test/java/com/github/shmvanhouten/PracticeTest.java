@@ -71,4 +71,12 @@ public class PracticeTest {
         String sentence = "Stop spinning my words";
         assertThat(Practice.spinWordsOver4LettersLong(sentence), is("Stop gninnips my sdrow"));
     }
+
+    @Test
+    public void countTheNumberOfOnesInTheBinaryRepresentationOfInteger() throws Exception {
+        assertThat(Practice.getAmountOfOnesInBinaryRepresentation(1234), is(5));
+        assertThat(Practice.getAmountOfOnesInBinaryRepresentation(4), is(1));
+        assertThat(Practice.getAmountOfOnesInBinaryRepresentation(7), is(3));
+        System.out.println(Integer.bitCount(1234));
+    }
 }
