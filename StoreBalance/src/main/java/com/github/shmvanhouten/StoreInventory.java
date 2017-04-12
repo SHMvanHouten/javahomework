@@ -110,7 +110,7 @@ public class StoreInventory {
             removeEntry(tempProduct);
             System.out.println("Product removed.");
         }else{
-            inventoryItem.removeFromQuantity(tempProduct, amount);
+            inventoryItem.removeFromQuantity(amount);
         }
     }
 }

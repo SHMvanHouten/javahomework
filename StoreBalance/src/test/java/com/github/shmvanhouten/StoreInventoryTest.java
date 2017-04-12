@@ -170,9 +170,14 @@ public class StoreInventoryTest {
         inventory.removeQuantityOfInventoryItem("tomatoSoup", of(2017,MAY,25),20);
     }
 
+    @Test
+    public void itShouldThrowAnExceptionIfItryToFindAProductThatIsNotThere() throws Exception {
+        StoreInventory inventory = new StoreInventory();
+        inventory.addInventoryItem("tomatoSoup", of(2017,MAY,25),30);
+        InventoryItem rusk = inventory.getInventoryItem(new Product("rusk", of(2017,JANUARY,12)));
+        System.out.println(rusk);
+    }
 
-
-    
     private void fillUpThePriceList(PriceList priceList) {
         priceList.inputPrice("tomatoSoup", new Money("2.30", "eur"));
         priceList.inputPrice("beans", new Money("1.35", "eur"));

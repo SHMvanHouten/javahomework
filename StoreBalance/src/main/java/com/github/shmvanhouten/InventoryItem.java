@@ -20,7 +20,7 @@ public class InventoryItem implements Comparable<InventoryItem> {
         return product;
     }
 
-    public void removeFromQuantity(Product product, int amount) {
+    public void removeFromQuantity(int amount) {
         quantity-= amount;
     }
 
