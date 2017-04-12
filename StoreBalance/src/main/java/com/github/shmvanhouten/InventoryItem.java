@@ -20,6 +20,10 @@ public class InventoryItem implements Comparable<InventoryItem> {
         return product;
     }
 
+    public void removeFromQuantity(Product product, int amount) {
+        quantity-= amount;
+    }
+
     @Override
     public int compareTo(InventoryItem other) {
         return this.getProduct().compareTo(other.getProduct());

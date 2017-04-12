@@ -4,7 +4,6 @@ import org.junit.Test;
 
 import static java.time.LocalDate.of;
 import static java.time.Month.APRIL;
-import static java.time.Month.JUNE;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 
@@ -29,5 +28,13 @@ public class InventoryItemTest {
         Product product = new Product("bananas", of(2017,APRIL,17));
         InventoryItem inventoryItem = new InventoryItem(product,20);
         assertThat(inventoryItem.toString(), is("InventoryItem {product name = 'bananas', expiryDate = 2017-04-17, quantity = 20}"));
+    }
+
+    @Test
+    public void itShouldSubtractAQuantityOfSixFromTheInventoryItem() throws Exception {
+        Product product = new Product("tomatoSoup", of(2017,APRIL,15));
+        InventoryItem inventoryItem = new InventoryItem(product, 30);
+        inventoryItem.removeFromQuantity(product, 10);
+        assertThat(inventoryItem.getInventoryItemQuantity(),is(20));
     }
 }
