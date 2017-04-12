@@ -102,4 +102,15 @@ public class StoreInventory {
     public InventoryItem getInventoryItem(Product product) {
         return inventoryList.get(product);
     }
+
+    public void removeQuantityOfInventoryItem(String productName, LocalDate expiryDate, int amount) {
+        Product tempProduct = new Product(productName,expiryDate);
+        InventoryItem inventoryItem = inventoryList.get(tempProduct);
+        if(inventoryItem.getInventoryItemQuantity() - amount<= 0){
+            removeEntry(tempProduct);
+            System.out.println("Product removed.");
+        }else{
+            inventoryItem.removeFromQuantity(tempProduct, amount);
+        }
+    }
 }

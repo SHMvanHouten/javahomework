@@ -161,8 +161,18 @@ public class StoreInventoryTest {
         }
     }
 
+    @Test
+    public void itShouldRemove10OfTheTomatoSoupCansFromTheEntry() throws Exception {
+        StoreInventory inventory = new StoreInventory();
+        inventory.addInventoryItem("tomatoSoup", of(2017,MAY,25),30);
+        inventory.removeQuantityOfInventoryItem("tomatoSoup", of(2017,MAY,25), 10);
+        assertThat(inventory.getProductOfExpiryDatesQuantity("tomatoSoup", of(2017,MAY,25)), is(20));
+        inventory.removeQuantityOfInventoryItem("tomatoSoup", of(2017,MAY,25),20);
+    }
 
 
+
+    
     private void fillUpThePriceList(PriceList priceList) {
         priceList.inputPrice("tomatoSoup", new Money("2.30", "eur"));
         priceList.inputPrice("beans", new Money("1.35", "eur"));
