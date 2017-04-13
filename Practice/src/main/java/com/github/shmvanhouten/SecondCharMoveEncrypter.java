@@ -1,6 +1,7 @@
 package com.github.shmvanhouten;
 
 public class SecondCharMoveEncrypter {
+
     public static String moveEverySecondCharToTheFront(String sentence) {
         StringBuilder encryptedSentence = new StringBuilder();
         StringBuilder encryptedSentenceRemaining = new StringBuilder();

@@ -12,4 +12,9 @@ public class SecondCharMoveDecrypterTest {
         assertThat(SecondCharMoveDecrypter.weaveTheSecondHalfWithFirst("hsi  etTi sats!"), is("This is a test!"));
         assertThat(SecondCharMoveDecrypter.weaveTheSecondHalfWithFirst("246813579"), is("123456789"));
     }
+
+    @Test
+    public void itShouldDoTheDecryptionNTimes() throws Exception {
+        assertThat(SecondCharMoveDecrypter.decryptNTimes("s eT ashi tist!", 2), is("This is a test!"));
+    }
 }

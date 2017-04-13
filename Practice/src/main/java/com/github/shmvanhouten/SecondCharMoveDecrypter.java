@@ -15,4 +15,12 @@ public class SecondCharMoveDecrypter {
         }
         return decryptedSentence.toString();
     }
+
+    public static String decryptNTimes(String encryptedSentence, int n) {
+        String decryptedSentence = encryptedSentence;
+        for(int i = 0; i<n; i++){
+            decryptedSentence = weaveTheSecondHalfWithFirst(decryptedSentence);
+        }
+        return decryptedSentence;
+    }
 }
