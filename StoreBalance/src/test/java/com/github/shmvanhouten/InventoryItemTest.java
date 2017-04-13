@@ -31,10 +31,10 @@ public class InventoryItemTest {
     }
 
     @Test
-    public void itShouldSubtractAQuantityOfSixFromTheInventoryItem() throws Exception {
+    public void itShouldSubtractAQuantityOfTenFromTheInventoryItem() throws Exception {
         Product product = new Product("tomatoSoup", of(2017,APRIL,15));
         InventoryItem inventoryItem = new InventoryItem(product, 30);
-        inventoryItem.removeFromQuantity(product, 10);
+        inventoryItem.removeFromQuantity(10);
         assertThat(inventoryItem.getInventoryItemQuantity(),is(20));
     }
 }
