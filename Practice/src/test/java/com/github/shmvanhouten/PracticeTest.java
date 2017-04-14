@@ -87,5 +87,6 @@ public class PracticeTest {
         String inputSentence = "4of Fo1r pe6ople g3ood th5e the2";
         assertThat(Practice.orderWordsAccordingToNumber("is2 Thi1s T4est 3a"),is("Thi1s is2 3a T4est"));
         assertThat(Practice.orderWordsAccordingToNumber(inputSentence),is(testSentence));
+        assertThat(Practice.orderWordsAccordingToNumber(""),is(""));
     }
 }

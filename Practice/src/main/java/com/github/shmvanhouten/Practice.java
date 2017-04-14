@@ -23,15 +23,6 @@ public class Practice {
 
     public String changeAllLettersToOppositeCase(String inputString) {
         StringBuilder outputString = new StringBuilder();
-//        for(int i = 0; i<inputString.length(); i++){
-//            char letter = inputString.charAt(i);
-//            if(Character.isUpperCase(letter)){
-//                outputString += Character.toLowerCase(letter);
-//            }else{
-//                outputString += Character.toUpperCase(letter);
-//            }
-//
-//        }
         for (char letter:inputString.toCharArray()) {
             if(Character.isUpperCase(letter)){
                 outputString.append(Character.toLowerCase(letter));
@@ -111,6 +102,7 @@ public class Practice {
     }
 
     public static String orderWordsAccordingToNumber(String sentence) {
+        if(sentence == ""){return"";}
         String[] unsortedArray = sentence.split(" ");
         String[] outputArray = new String[unsortedArray.length];
         for (String word : unsortedArray) {
