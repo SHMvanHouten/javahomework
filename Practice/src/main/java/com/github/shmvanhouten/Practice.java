@@ -1,6 +1,8 @@
 package com.github.shmvanhouten;
 
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class Practice {
     public String getPositionInAlphabet(char alphabet) {
@@ -106,5 +108,20 @@ public class Practice {
             }
         }
         return oneCounter;
+    }
+
+    public static String orderWordsAccordingToNumber(String sentence) {
+        String[] unsortedArray = sentence.split(" ");
+        String[] outputArray = new String[unsortedArray.length];
+        for (String word : unsortedArray) {
+            Pattern p = Pattern.compile("\\d");
+            Matcher m = p.matcher(word);
+            while(m.find()) {
+                int number = Character.getNumericValue(word.charAt(m.start()));
+                outputArray[number-1] = word;
+            }
+        }
+
+        return String.join(" ", outputArray);
     }
 }

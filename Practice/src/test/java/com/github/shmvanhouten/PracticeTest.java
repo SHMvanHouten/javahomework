@@ -3,6 +3,7 @@ package com.github.shmvanhouten;
 import org.junit.Test;
 
 import java.text.DecimalFormat;
+import java.util.regex.Pattern;
 
 import static org.hamcrest.MatcherAssert.*;
 import static org.hamcrest.Matchers.*;
@@ -44,8 +45,8 @@ public class PracticeTest {
     public void itShouldTurnTheFirstLetterOfEachWordIntoACapitalLetter() throws Exception {
         Practice practice = new Practice();
         String example = "How can mirrors be real if our eyes aren't real";
-        System.out.println(example.split("\\s+")[0] + example.split("\\s+")[1] + example.split("\\s+")[2]);
-        assertThat(practice.changeFirstLetterOfEachWordToUpperCase(example), is("How Can Mirrors Be Real If Our Eyes Aren't Real"));
+        String testString = "How Can Mirrors Be Real If Our Eyes Aren't Real";
+        assertThat(practice.changeFirstLetterOfEachWordToUpperCase(example), is(testString));
     }
 
     @Test
@@ -78,5 +79,13 @@ public class PracticeTest {
         assertThat(Practice.getAmountOfOnesInBinaryRepresentation(4), is(1));
         assertThat(Practice.getAmountOfOnesInBinaryRepresentation(7), is(3));
         System.out.println(Integer.bitCount(1234));
+    }
+
+    @Test
+    public void itShouldPutTheWordsInOrderOfTheNumberInThem() throws Exception {
+        String testSentence = "Fo1r the2 g3ood 4of th5e pe6ople";
+        String inputSentence = "4of Fo1r pe6ople g3ood th5e the2";
+        assertThat(Practice.orderWordsAccordingToNumber("is2 Thi1s T4est 3a"),is("Thi1s is2 3a T4est"));
+        assertThat(Practice.orderWordsAccordingToNumber(inputSentence),is(testSentence));
     }
 }
