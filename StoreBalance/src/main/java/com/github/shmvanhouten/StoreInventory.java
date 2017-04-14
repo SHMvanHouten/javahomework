@@ -1,7 +1,13 @@
 package com.github.shmvanhouten;
 
-        import java.util.*;
-        import java.time.LocalDate;
+import com.google.common.base.Preconditions;
+
+import java.time.LocalDate;
+import java.util.*;
+
+import static com.google.common.base.Preconditions.checkArgument;
+import static com.google.common.base.Preconditions.checkNotNull;
+import static java.time.LocalDate.now;
 
 public class StoreInventory {
 
@@ -9,7 +15,11 @@ public class StoreInventory {
 
 
 
-    public void addInventoryItem(String name, LocalDate expiryDate, Integer quantity){
+    public void addInventoryItem(String name, LocalDate expiryDate, Integer quantity) throws IllegalArgumentException {
+
+        checkArgument(expiryDate.isAfter(now()));
+        checkNotNull(name);
+
 
         Product product = new Product(name, expiryDate);
         if(inventoryList.containsKey(product)) {
@@ -89,13 +99,22 @@ public class StoreInventory {
         List<InventoryItem> listOfAllInventoryItemsOfExpiryDate = new ArrayList<>();
         List<Product> listOfAllProductItemsOfExpiryDate = getListOfAllProductsOfAnExpiryDate(expiryDate);
         for (Product product: listOfAllProductItemsOfExpiryDate) {
-            listOfAllInventoryItemsOfExpiryDate.add(inventoryList.get(product));
-            removeEntry(product);
+            try {
+                listOfAllInventoryItemsOfExpiryDate.add(inventoryList.get(product));
+                removeEntry(product);
+            } catch (UnknownProductException e) {
+                // Ignore this, because the unknown product should be removed anyway.
+                System.err.println("Attempt to remove unknown product: " + product.getName());
+            }
         }
         return listOfAllInventoryItemsOfExpiryDate;
     }
 
-    public void removeEntry(Product product) {
+    public void removeEntry(Product product) throws UnknownProductException {
+        if (!inventoryList.containsKey(product)) {
+            throw new UnknownProductException();
+        }
+
         inventoryList.remove(product);
     }
 
@@ -107,8 +126,12 @@ public class StoreInventory {
         Product tempProduct = new Product(productName,expiryDate);
         InventoryItem inventoryItem = inventoryList.get(tempProduct);
         if(inventoryItem.getInventoryItemQuantity() - amount<= 0){
-            removeEntry(tempProduct);
-            System.out.println("Product removed.");
+            try {
+                removeEntry(tempProduct);
+                System.out.println("Product removed.");
+            } catch (UnknownProductException e) {
+
+            }
         }else{
             inventoryItem.removeFromQuantity(amount);
         }

@@ -7,6 +7,7 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.Is.is;
 
 public class PriceListTest {
+
     @Test
     public void itShouldAddThePriceOfTomatoSoup () throws Exception{
         PriceList priceList = new PriceList();
