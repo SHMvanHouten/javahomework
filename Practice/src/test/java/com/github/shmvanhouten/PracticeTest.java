@@ -89,4 +89,18 @@ public class PracticeTest {
         assertThat(Practice.orderWordsAccordingToNumber(inputSentence),is(testSentence));
         assertThat(Practice.orderWordsAccordingToNumber(""),is(""));
     }
+
+    @Test
+    public void itShouldReturnAAAAForTTTT() throws Exception {
+        String inputSentence = "TTTT";
+        String testSentence = "AAAA";
+        assertThat(Practice.getComplementBase(inputSentence),is(testSentence));
+    }
+
+    @Test
+    public void itShouldReturnCATAForGTAT() throws Exception {
+        String inputSentence = "GTAT";
+        String testSentence = "CATA";
+        assertThat(Practice.getComplementBase(inputSentence),is(testSentence));
+    }
 }

@@ -1,6 +1,8 @@
 package com.github.shmvanhouten;
 
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -115,5 +117,20 @@ public class Practice {
         }
 
         return String.join(" ", outputArray);
+    }
+
+
+
+    public static String getComplementBase(String baseString) {
+        Map<Character, Character> basePairing = new HashMap<>();
+        basePairing.put('A', 'T');
+        basePairing.put('T', 'A');
+        basePairing.put('C', 'G');
+        basePairing.put('G', 'C');
+        StringBuilder complementaryBaseString =  new StringBuilder();
+        for (char base : baseString.toCharArray()) {
+            complementaryBaseString.append(basePairing.get(base));
+        }
+        return complementaryBaseString.toString();
     }
 }
