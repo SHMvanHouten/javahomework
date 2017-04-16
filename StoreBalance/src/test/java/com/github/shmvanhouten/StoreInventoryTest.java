@@ -19,7 +19,7 @@ public class StoreInventoryTest {
     @Test
     public void itShouldAddANewProductToTheStoreInventory() throws Exception{
         StoreInventory inventory = new StoreInventory();
-        inventory.addInventoryItem("tomatoSoup", of(2017,JUNE,29), 20);
+        inventory.addInventoryItem(PRODUCT_NAME, of(2017,JUNE,29), 20);
         assertThat(inventory.getInventoryList().size(), is(1));
     }
 
@@ -27,7 +27,7 @@ public class StoreInventoryTest {
     @Test(expected = IllegalArgumentException.class)
     public void itShouldRefuseAlreadyExpiredProducts() throws Exception {
         StoreInventory inventory = new StoreInventory();
-        inventory.addInventoryItem("tomatoSoup", of(2016, JUNE, 29), 20);
+        inventory.addInventoryItem(PRODUCT_NAME, of(2016, JUNE, 29), 20);
 
     }
 
@@ -37,9 +37,9 @@ public class StoreInventoryTest {
         StoreInventory inventory = new StoreInventory();
 
 
-        attemptToAddItemToInventory(inventory, "tomatoSoup", of(2016, JUNE, 29), 20);
-        attemptToAddItemToInventory(inventory, "tomatoSoup", of(2017,JUNE,30), 20);
-        attemptToAddItemToInventory(inventory, "tomatoSoup", of(2017,JUNE,29), 15);
+        attemptToAddItemToInventory(inventory, PRODUCT_NAME, of(2016, JUNE, 29), 20);
+        attemptToAddItemToInventory(inventory, PRODUCT_NAME, of(2017,JUNE,30), 20);
+        attemptToAddItemToInventory(inventory, PRODUCT_NAME, of(2017,JUNE,29), 15);
         attemptToAddItemToInventory(inventory, "marsBars", of(2017, APRIL,20), 80);
 
 
@@ -66,42 +66,42 @@ public class StoreInventoryTest {
     @Test
     public void itShouldChangeTheQuantityOfTheInventoryItemAndGetTheAmountOfThatProductOfThatExpirationDate(){
         StoreInventory inventory = new StoreInventory();
-        inventory.addInventoryItem("tomatoSoup", of(2017,JUNE,29), 20);
-        inventory.addInventoryItem("tomatoSoup", of(2017,JUNE,29), 15);
-        assertThat(inventory.getProductOfExpiryDatesQuantity("tomatoSoup", of(2017,JUNE,29)), is(35));
+        inventory.addInventoryItem(PRODUCT_NAME, of(2017,JUNE,29), 20);
+        inventory.addInventoryItem(PRODUCT_NAME, of(2017,JUNE,29), 15);
+        assertThat(inventory.getProductOfExpiryDatesQuantity(PRODUCT_NAME, of(2017,JUNE,29)), is(35));
     }
 
     @Test
     public void itShouldGetTheTotalAmountOfATypeOfProduct(){
         StoreInventory inventory = new StoreInventory();
-        inventory.addInventoryItem("tomatoSoup", of(2017,JUNE,30), 20);
-        inventory.addInventoryItem("tomatoSoup", of(2017,JUNE,29), 15);
-        assertThat(inventory.getProductTotalQuantity("tomatoSoup"), is(35));
+        inventory.addInventoryItem(PRODUCT_NAME, of(2017,JUNE,30), 20);
+        inventory.addInventoryItem(PRODUCT_NAME, of(2017,JUNE,29), 15);
+        assertThat(inventory.getProductTotalQuantity(PRODUCT_NAME), is(35));
     }
 
     @Test
     public void itShouldReturnAllProducts(){
         StoreInventory inventory = new StoreInventory();
-        inventory.addInventoryItem("tomatoSoup", of(2017,JUNE,30), 20);
-        inventory.addInventoryItem("tomatoSoup", of(2017,JUNE,29), 15);
+        inventory.addInventoryItem(PRODUCT_NAME, of(2017,JUNE,30), 20);
+        inventory.addInventoryItem(PRODUCT_NAME, of(2017,JUNE,29), 15);
         inventory.addInventoryItem("marsBars", of(2017,APRIL,20), 80);
 
         List<InventoryItem> items = inventory.getInventoryList();
 
         assertThat(items.get(0).getInventoryItemQuantity(), is(80));
         assertThat(items.get(0).getProduct().getName(), is("marsBars"));
-        assertThat(items.get(1).getProduct().getName(), is("tomatoSoup"));
+        assertThat(items.get(1).getProduct().getName(), is(PRODUCT_NAME));
     }
 
     @Test
     public void itShouldGiveTheTotalValueOfTheProductsWithThatExpirationDate() throws Exception{
         StoreInventory inventory = new StoreInventory();
         LocalDate juneThirty = of(2017, JUNE, 30);
-        inventory.addInventoryItem("tomatoSoup", juneThirty, 20);
-        inventory.addInventoryItem("tomatoSoup", of(2017,JUNE,29), 15);
+        inventory.addInventoryItem(PRODUCT_NAME, juneThirty, 20);
+        inventory.addInventoryItem(PRODUCT_NAME, of(2017,JUNE,29), 15);
         PriceList priceList = prepareDefaultPriceList("2.30", PRODUCT_NAME);
 
-        Money totalValueOfSoup = inventory.getTotalValueOfProductsOfExpiryDate("tomatoSoup", juneThirty, priceList);
+        Money totalValueOfSoup = inventory.getTotalValueOfProductsOfExpiryDate(PRODUCT_NAME, juneThirty, priceList);
 
         Money expectedPrice = new Money("46.00", "eur");
         assertThat(totalValueOfSoup, is(expectedPrice));
@@ -117,21 +117,21 @@ public class StoreInventoryTest {
     @Test
     public void itShouldGiveTheTotalValueOfAllTheProductsOfThatType() throws Exception{
         StoreInventory inventory = new StoreInventory();
-        inventory.addInventoryItem("tomatoSoup", of(2017,JUNE,30), 20);
-        inventory.addInventoryItem("tomatoSoup", of(2017,JUNE,29), 15);
+        inventory.addInventoryItem(PRODUCT_NAME, of(2017,JUNE,30), 20);
+        inventory.addInventoryItem(PRODUCT_NAME, of(2017,JUNE,29), 15);
         PriceList priceList = prepareDefaultPriceList("2.30", PRODUCT_NAME);
 
 
         Money expectedPrice = new Money("80.50", "eur");
-        assertThat(inventory.getTotalValueOfProducts("tomatoSoup", priceList), is(expectedPrice));
+        assertThat(inventory.getTotalValueOfProducts(PRODUCT_NAME, priceList), is(expectedPrice));
     }
 
 
     @Test
     public void itShouldGiveAListOfAllTheProductsOfAnExpiryDate() throws Exception{
         StoreInventory inventory = new StoreInventory();
-        inventory.addInventoryItem("tomatoSoup", of(2017,JUNE,30), 20);
-        inventory.addInventoryItem("tomatoSoup", of(2017,JUNE,29), 15);
+        inventory.addInventoryItem(PRODUCT_NAME, of(2017,JUNE,30), 20);
+        inventory.addInventoryItem(PRODUCT_NAME, of(2017,JUNE,29), 15);
         inventory.addInventoryItem("beans", of(2017,JUNE,30), 17);
         inventory.addInventoryItem("cola", of(2017,JUNE,30), 13);
         inventory.addInventoryItem("sprite", of(2017,JUNE,30), 28);
@@ -140,17 +140,17 @@ public class StoreInventoryTest {
         assertThat(expiryDateList.get(0).getExpiryDate(), is(of(2017,JUNE,30)));
         assertThat(expiryDateList.get(0).getName(), is("beans"));
         assertThat(expiryDateList.get(1).getName(), is("cola"));
-        assertThat(expiryDateList.get(3).getName(), is("tomatoSoup"));
+        assertThat(expiryDateList.get(3).getName(), is(PRODUCT_NAME));
     }
 
     @Test
     public void itShouldGiveTheTotalValueOfAllTheProductsOfAnExpiryDate() throws Exception{
         StoreInventory inventory = new StoreInventory();
-        inventory.addInventoryItem("tomatoSoup", of(2017,JUNE,30), 20);
-        inventory.addInventoryItem("tomatoSoup", of(2017,JUNE,29), 15);
+        inventory.addInventoryItem(PRODUCT_NAME, of(2017,JUNE,30), 20);
+        inventory.addInventoryItem(PRODUCT_NAME, of(2017,JUNE,29), 15);
         inventory.addInventoryItem("beans", of(2017,JUNE,30), 17);
         PriceList priceList = new PriceList();
-        priceList.inputPrice("tomatoSoup", new Money("2.30", "eur"));
+        priceList.inputPrice(PRODUCT_NAME, new Money("2.30", "eur"));
         priceList.inputPrice("beans", new Money("1.50", "eur"));
         Money expectedPrice = new Money("71.50", "eur");
         assertThat(inventory.getTotalValueOfAllProductsOfExpiryDate(of(2017,JUNE,30),priceList, "eur"),is(expectedPrice));
@@ -168,13 +168,13 @@ public class StoreInventoryTest {
     @Test
     public void itShouldRemoveAnItemFromTheInventory() throws Exception {
         StoreInventory inventory = new StoreInventory();
-        inventory.addInventoryItem("tomatoSoup", of(2017,APRIL,14), 20);
-        inventory.addInventoryItem("sprite", of(2017,APRIL,14), 12);
+        inventory.addInventoryItem(PRODUCT_NAME, of(2017,MAY,14), 20);
+        inventory.addInventoryItem("sprite", of(2017,MAY,14), 12);
 
         StoreInventory testInventory = new StoreInventory();
-        testInventory.addInventoryItem("sprite", of(2017,APRIL,14), 12);
+        testInventory.addInventoryItem("sprite", of(2017,MAY,14), 12);
 
-        inventory.removeEntry(new Product("tomateSoup", of(2017,APRIL,14)));
+        inventory.removeEntry(new Product("tomatoSoup", of(2017,MAY,14)));
 
         assertThat(inventory.getInventoryList().size(), is(testInventory.getInventoryList().size()));
         assertThat(inventory.getInventoryList().get(0).toString(), is(testInventory.getInventoryList().get(0).toString()));
@@ -186,20 +186,20 @@ public class StoreInventoryTest {
         PriceList priceList = new PriceList();
         fillUpTheInventory(inventory);
         fillUpThePriceList(priceList);
-        inventory.addInventoryItem("tomatoSoup", of(2017,APRIL,14), 20);
-        inventory.addInventoryItem("sprite", of(2017,APRIL,14), 12);
-        inventory.addInventoryItem("cola", of(2017,APRIL,14), 23);
-        inventory.addInventoryItem("bread", of(2017,APRIL,14), 9);
-        List<InventoryItem> listOfExpiredProducts = inventory.removeAllEntriesOfExpiryDate(of(2017,APRIL,14));
+        inventory.addInventoryItem(PRODUCT_NAME, of(2017,MAY,14), 20);
+        inventory.addInventoryItem("sprite", of(2017,MAY,14), 12);
+        inventory.addInventoryItem("cola", of(2017,MAY,14), 23);
+        inventory.addInventoryItem("bread", of(2017,MAY,14), 9);
+        List<InventoryItem> listOfExpiredProducts = inventory.removeAllEntriesOfExpiryDate(of(2017,MAY,14));
 
         StoreInventory testInventory = new StoreInventory();
         fillUpTheInventory(testInventory);
 
         StoreInventory tempInventory = new StoreInventory();
-        tempInventory.addInventoryItem("tomatoSoup", of(2017,APRIL,14), 20);
-        tempInventory.addInventoryItem("sprite", of(2017,APRIL,14), 12);
-        tempInventory.addInventoryItem("cola", of(2017,APRIL,14), 23);
-        tempInventory.addInventoryItem("bread", of(2017,APRIL,14), 9);
+        tempInventory.addInventoryItem(PRODUCT_NAME, of(2017,MAY,14), 20);
+        tempInventory.addInventoryItem("sprite", of(2017,MAY,14), 12);
+        tempInventory.addInventoryItem("cola", of(2017,MAY,14), 23);
+        tempInventory.addInventoryItem("bread", of(2017,MAY,14), 9);
         List<InventoryItem> testList = tempInventory.getInventoryList();
 
         assertThat(inventory.getInventoryList().size(), is(testInventory.getInventoryList().size()));
@@ -216,22 +216,22 @@ public class StoreInventoryTest {
     @Test
     public void itShouldRemove10OfTheTomatoSoupCansFromTheEntry() throws Exception {
         StoreInventory inventory = new StoreInventory();
-        inventory.addInventoryItem("tomatoSoup", of(2017,MAY,25),30);
-        inventory.removeQuantityOfInventoryItem("tomatoSoup", of(2017,MAY,25), 10);
-        assertThat(inventory.getProductOfExpiryDatesQuantity("tomatoSoup", of(2017,MAY,25)), is(20));
-        inventory.removeQuantityOfInventoryItem("tomatoSoup", of(2017,MAY,25),20);
+        inventory.addInventoryItem(PRODUCT_NAME, of(2017,MAY,25),30);
+        inventory.removeQuantityOfInventoryItem(PRODUCT_NAME, of(2017,MAY,25), 10);
+        assertThat(inventory.getProductOfExpiryDatesQuantity(PRODUCT_NAME, of(2017,MAY,25)), is(20));
+        inventory.removeQuantityOfInventoryItem(PRODUCT_NAME, of(2017,MAY,25),20);
     }
 
     @Test
-    public void itShouldThrowAnExceptionIfItryToFindAProductThatIsNotThere() throws Exception {
+    public void itShouldThrowAnExceptionIfITryToFindAProductThatIsNotThere() throws Exception {
         StoreInventory inventory = new StoreInventory();
-        inventory.addInventoryItem("tomatoSoup", of(2017,MAY,25),30);
+        inventory.addInventoryItem(PRODUCT_NAME, of(2017,MAY,25),30);
         InventoryItem rusk = inventory.getInventoryItem(new Product("rusk", of(2017,JANUARY,12)));
         System.out.println(rusk);
     }
 
     private void fillUpThePriceList(PriceList priceList) {
-        priceList.inputPrice("tomatoSoup", new Money("2.30", "eur"));
+        priceList.inputPrice(PRODUCT_NAME, new Money("2.30", "eur"));
         priceList.inputPrice("beans", new Money("1.35", "eur"));
         priceList.inputPrice("cola", new Money("1.25", "eur"));
         priceList.inputPrice("sprite", new Money("1.25", "eur"));
@@ -240,13 +240,13 @@ public class StoreInventoryTest {
 
 
     private void fillUpTheInventory(StoreInventory inventory) {
-        inventory.addInventoryItem("tomatoSoup", of(2017,JUNE,30), 20);
-        inventory.addInventoryItem("tomatoSoup", of(2017,MAY,15), 15);
+        inventory.addInventoryItem(PRODUCT_NAME, of(2017,JUNE,30), 20);
+        inventory.addInventoryItem(PRODUCT_NAME, of(2017,MAY,15), 15);
         inventory.addInventoryItem("beans", of(2017,AUGUST,10), 17);
         inventory.addInventoryItem("cola", of(2017,JUNE,30), 13);
         inventory.addInventoryItem("cola", of(2017,SEPTEMBER,30), 30);
         inventory.addInventoryItem("sprite", of(2017,DECEMBER,30), 28);
-        inventory.addInventoryItem("bread", of(2017,APRIL,15), 28);
+        inventory.addInventoryItem("bread", of(2017,MAY,15), 28);
     }
 
 

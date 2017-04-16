@@ -17,7 +17,7 @@ public class StoreInventory {
 
     public void addInventoryItem(String name, LocalDate expiryDate, Integer quantity) throws IllegalArgumentException {
 
-        checkArgument(expiryDate.isAfter(now()));
+        checkArgument(expiryDate.isAfter(now()), "Expiration date has passed");
         checkNotNull(name);
 
 
