@@ -1,12 +1,14 @@
 package com.github.shmvanhouten;
 
 import java.math.BigDecimal;
+import static com.google.common.base.Preconditions.checkArgument;
 
 
 public class Money {
     private BigDecimal amount;
     private String currency;
-    Money(String amountInput, String currencyInput){
+    Money(String amountInput, String currencyInput) throws IllegalArgumentException{
+        checkArgument(Float.parseFloat(amountInput) >=0);
         amount = new BigDecimal(amountInput);
         currency = currencyInput;
     }
@@ -16,6 +18,7 @@ public class Money {
     }
 
     public Money add(Money amountToAdd) {
+        checkArgument(amountToAdd.getCurrency().equals(currency));
         BigDecimal returnValue = amount.add(amountToAdd.getAmount());
         return new Money(returnValue.toString(), currency);
     }

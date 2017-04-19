@@ -36,11 +36,15 @@ public class MoneyTest {
         assertThat(valueOfThreeCansOfTomatoSoup.minus(valueOfOneCanOfTomatoSoup),is(new Money("6.46", "eur")));
     }
 
-    @Ignore
-    @Test
+    @Test (expected = IllegalArgumentException.class)
     public void itShouldThrowAnExceptionWhenTwoDifferentCurrenciesAreEntered() throws Exception{
         Money tomatoSoupPrice = new Money("3.23", "dol");
         Money colaPrice = new Money("1.75", "eur");
         tomatoSoupPrice.add(colaPrice);
+    }
+
+    @Test (expected = IllegalArgumentException.class)
+    public void itShouldThrowAnExceptionOnNegativeCurrencyInput() throws Exception {
+        Money negativePrice = new Money("-2.50", "eur");
     }
 }

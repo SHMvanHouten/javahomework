@@ -1,10 +1,13 @@
 package com.github.shmvanhouten;
+import static com.google.common.base.Preconditions.checkArgument;
+
 
 public class InventoryItem implements Comparable<InventoryItem> {
     private final Product product;
     private Integer quantity;
 
     public InventoryItem(Product product, Integer quantity) {
+        checkArgument(quantity >=0);
         this.product = product;
         this.quantity = quantity;
     }
@@ -21,7 +24,7 @@ public class InventoryItem implements Comparable<InventoryItem> {
     }
 
     public void removeFromQuantity(int amount) {
-        quantity-= amount;
+        quantity -= amount;
     }
 
     @Override

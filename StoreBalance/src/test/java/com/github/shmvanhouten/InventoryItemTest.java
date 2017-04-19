@@ -4,22 +4,22 @@ import org.junit.Test;
 
 import static java.time.LocalDate.of;
 import static java.time.Month.APRIL;
+import static java.time.Month.MAY;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 
 public class InventoryItemTest {
+    private final Product PRODUCT = new Product("tomatoSoup", of(2017, MAY, 10));
 
     @Test
     public void itShouldGetTheAmountOfCansOfTomatoSoupOfACertainDate() throws Exception{
-        Product product = new Product("tomatoSoup", of(2017, APRIL, 10));
-        InventoryItem tomatoSoup = new InventoryItem(product, 15);
+        InventoryItem tomatoSoup = new InventoryItem(PRODUCT, 15);
         assertThat(tomatoSoup.getInventoryItemQuantity(),is(15));
     }
 
     @Test
     public void itShouldAddAQuantityOfSixToTheInventoryItem() throws Exception{
-        Product product = new Product("tomatoSoup", of(2017,APRIL,10));
-        InventoryItem tomatoSoup = new InventoryItem(product, 15);
+        InventoryItem tomatoSoup = new InventoryItem(PRODUCT, 15);
         tomatoSoup.addToQuantity(6);
         assertThat(tomatoSoup.getInventoryItemQuantity(), is(21));
     }
@@ -32,9 +32,13 @@ public class InventoryItemTest {
 
     @Test
     public void itShouldSubtractAQuantityOfTenFromTheInventoryItem() throws Exception {
-        Product product = new Product("tomatoSoup", of(2017,APRIL,15));
-        InventoryItem inventoryItem = new InventoryItem(product, 30);
+        InventoryItem inventoryItem = new InventoryItem(PRODUCT, 30);
         inventoryItem.removeFromQuantity(10);
         assertThat(inventoryItem.getInventoryItemQuantity(),is(20));
+    }
+
+    @Test (expected = IllegalArgumentException.class)
+    public void itShouldNotAllowANegativeQuantityToBeInputOnAnInventoryItem() throws Exception {
+        InventoryItem negativeItem = new InventoryItem(PRODUCT, -23);
     }
 }

@@ -105,6 +105,7 @@ public class StoreInventoryTest {
 
         Money expectedPrice = new Money("46.00", "eur");
         assertThat(totalValueOfSoup, is(expectedPrice));
+
     }
 
     private PriceList prepareDefaultPriceList(String amount, String productName) {
