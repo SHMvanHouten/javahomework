@@ -28,7 +28,9 @@ public class MoleculeToAtomsParser {
                 i += tempMolecule.length() -1;
             }
             if(isUpperCase(ch)){
-                atomMap.put(element.toString(), getQuantity(quantity));
+                if(element.length()>0){
+                    atomMap.put(element.toString(), getQuantity(quantity));
+                }
                 element = new StringBuilder();
                 quantity = new StringBuilder();
                 element.append(ch);
