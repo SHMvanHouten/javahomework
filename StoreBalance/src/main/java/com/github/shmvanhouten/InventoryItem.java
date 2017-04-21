@@ -8,6 +8,7 @@ public class InventoryItem implements Comparable<InventoryItem> {
 
     public InventoryItem(Product product, Integer quantity) {
         checkArgument(quantity >=0);
+
         this.product = product;
         this.quantity = quantity;
     }

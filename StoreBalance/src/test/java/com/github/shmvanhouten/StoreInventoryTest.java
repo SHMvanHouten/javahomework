@@ -223,7 +223,7 @@ public class StoreInventoryTest {
         inventory.removeQuantityOfInventoryItem(PRODUCT_NAME, of(2017,MAY,25),20);
     }
 
-    @Test
+    @Test (expected = UnknownProductException.class)
     public void itShouldThrowAnExceptionIfITryToFindAProductThatIsNotThere() throws Exception {
         StoreInventory inventory = new StoreInventory();
         inventory.addInventoryItem(PRODUCT_NAME, of(2017,MAY,25),30);

@@ -24,8 +24,7 @@ public class StoreInventory {
         Product product = new Product(name, expiryDate);
         if(inventoryList.containsKey(product)) {
             inventoryList.get(product).addToQuantity(quantity);
-        }
-        else{
+        } else{
             InventoryItem inventoryItem = new InventoryItem(product, quantity);
             inventoryList.put(product, inventoryItem);
         }
@@ -111,15 +110,21 @@ public class StoreInventory {
     }
 
     public void removeEntry(Product product) throws UnknownProductException {
-        if (!inventoryList.containsKey(product)) {
-            throw new UnknownProductException();
-        }
+        checkForProduct(product);
 
         inventoryList.remove(product);
     }
 
-    public InventoryItem getInventoryItem(Product product) {
+    public InventoryItem getInventoryItem(Product product) throws UnknownProductException {
+        checkForProduct(product);
+
         return inventoryList.get(product);
+    }
+
+    private void checkForProduct(Product product) throws UnknownProductException {
+        if (!inventoryList.containsKey(product)) {
+            throw new UnknownProductException();
+        }
     }
 
     public void removeQuantityOfInventoryItem(String productName, LocalDate expiryDate, int amount) {
