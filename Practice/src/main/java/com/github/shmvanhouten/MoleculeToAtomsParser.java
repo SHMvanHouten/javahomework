@@ -4,6 +4,7 @@ import java.util.Map;
 import java.util.TreeMap;
 
 import static java.lang.Character.isDigit;
+import static java.lang.Character.isLowerCase;
 import static java.lang.Character.isUpperCase;
 import static java.lang.Integer.parseInt;
 
@@ -21,23 +22,43 @@ public class MoleculeToAtomsParser {
                 String tempMolecule = molecule.substring(i + 1, indexOfClosingBracket);
                 Map<String, Integer> tempAtomMap = parse(tempMolecule);
                 for (String key: tempAtomMap.keySet()) {
-                    atomMap.merge(key,tempAtomMap.get(key), Integer::sum);
+                    Integer quantityInSubstring = tempAtomMap.get(key) * numberAfterBrackets(molecule, indexOfClosingBracket);
+                    atomMap.merge(key, quantityInSubstring, Integer::sum);
                 }
+                i += tempMolecule.length() -1;
             }
             if(isUpperCase(ch)){
                 atomMap.put(element.toString(), getQuantity(quantity));
                 element = new StringBuilder();
                 quantity = new StringBuilder();
+                element.append(ch);
             }
             if(isDigit(ch)){
                 quantity.append(ch);
-            }else{
+            }
+            if(isLowerCase(ch)){
                 element.append(ch);
             }
             i++;
         }
         atomMap.put(element.toString(), getQuantity(quantity));
         return atomMap;
+    }
+
+    private int numberAfterBrackets(String molecule, int indexOfClosingBracket) {
+        String tempString = molecule.substring(indexOfClosingBracket + 1);
+        StringBuilder numberAfterBrackets = new StringBuilder();
+        int i = 0;
+        while (i < tempString.length()) {
+            char ch = tempString.charAt(i);
+            if (isDigit(ch)) {
+                numberAfterBrackets.append(ch);
+            } else {
+                break;
+            }
+            i++;
+        }
+            return getQuantity(numberAfterBrackets);
     }
 
     private int getQuantity(StringBuilder quantity) {

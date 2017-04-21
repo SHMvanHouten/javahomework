@@ -22,6 +22,9 @@ public class MoleculeToAtomsParserTest {
     public void itShouldSay1FeAtomsAreInAFeMolecule() throws Exception {
         MoleculeToAtomsParser parser = new MoleculeToAtomsParser();
         Map<String, Integer> atomMap = parser.parse("Fe");
+        for (String atom : atomMap.keySet()) {
+            System.out.println(atom + atomMap.get(atom));
+        }
         assertThat(atomMap.get("Fe"),is(1));
     }
 
@@ -37,8 +40,9 @@ public class MoleculeToAtomsParserTest {
     public void itShouldHandleBrackets() throws Exception {
         MoleculeToAtomsParser parser = new MoleculeToAtomsParser();
         Map<String, Integer> atomMap = parser.parse("Mg(OH)2");
-        assertThat(atomMap.get("H"), is(2));
-        assertThat(atomMap.get("O"),is(2));
-        assertThat(atomMap.get("Mg"), is(1));
+
+        assertThat("H == 2",atomMap.get("H"), is(2));
+        assertThat("O == 2",atomMap.get("O"),is(2));
+        assertThat("Mg = 1",atomMap.get("Mg"), is(1));
     }
 }
