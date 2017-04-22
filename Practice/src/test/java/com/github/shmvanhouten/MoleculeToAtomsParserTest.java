@@ -39,11 +39,22 @@ public class MoleculeToAtomsParserTest {
     public void itShouldHandleBrackets() throws Exception {
         MoleculeToAtomsParser parser = new MoleculeToAtomsParser();
         Map<String, Integer> atomMap = parser.parse("Mg(OH)2");
-        for (String atom : atomMap.keySet()) {
-            System.out.println(atom + atomMap.get(atom));
-        }
+
         assertThat("H == 2",atomMap.get("H"), is(2));
         assertThat("O == 2",atomMap.get("O"),is(2));
         assertThat("Mg = 1",atomMap.get("Mg"), is(1));
+    }
+
+    @Test
+    public void itShouldHandleOtherTypeOfBrackets() throws Exception {
+        MoleculeToAtomsParser parser = new MoleculeToAtomsParser();
+        Map<String, Integer> atomMap = parser.parse("K4[ON(SO3)2]2");
+        for (String atom : atomMap.keySet()) {
+            System.out.println(atom + " " + atomMap.get(atom));
+        }
+        assertThat("K == 4",atomMap.get("K"), is(4));
+        assertThat("O == 14",atomMap.get("O"),is(14));
+        assertThat("N = 2",atomMap.get("N"), is(2));
+        assertThat("S = $",atomMap.get("S"), is(4));
     }
 }
