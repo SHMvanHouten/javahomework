@@ -4,9 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.TreeMap;
 
-import static java.lang.Character.isDigit;
-import static java.lang.Character.isLowerCase;
-import static java.lang.Character.isUpperCase;
+import static java.lang.Character.*;
 import static java.lang.Integer.parseInt;
 
 public class MoleculeToAtomsParser {
@@ -36,7 +34,8 @@ public class MoleculeToAtomsParser {
             }
             if(isDigit(ch)){
                 quantity.append(ch);
-            }else{
+            }
+            if(isLetter(ch)){
                 element.append(ch);
             }
             i++;
