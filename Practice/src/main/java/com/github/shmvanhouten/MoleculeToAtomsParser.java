@@ -93,18 +93,16 @@ public class MoleculeToAtomsParser {
 
     private int getNumberAfterBrackets(String molecule, int indexOfClosingBracket) {
         String tempString = molecule.substring(indexOfClosingBracket + 1);
+
         StringBuilder numberAfterBrackets = new StringBuilder();
+
         int i = 0;
-        while (i < tempString.length()) {
-            char ch = tempString.charAt(i);
-            if (isDigit(ch)) {
-                numberAfterBrackets.append(ch);
-            } else {
-                break;
-            }
+
+        while (i < tempString.length() && isDigit(tempString.charAt(i))) {
+            numberAfterBrackets.append(tempString.charAt(i));
             i++;
         }
-            return getQuantity(numberAfterBrackets);
+        return getQuantity(numberAfterBrackets);
     }
 
     private int getQuantity(StringBuilder quantity) {
