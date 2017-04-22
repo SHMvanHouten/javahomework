@@ -49,36 +49,12 @@ public class MoleculeToAtomsParser {
         return atomMap;
     }
 
-    private int processBracketSection(String molecule, Map<String, Integer> atomMap, int i, Map<Character, Character> brackets, char ch) {
-        int indexOfClosingBracket = molecule.lastIndexOf(brackets.get(ch));
-        int numberAfterBrackets = getNumberAfterBrackets(molecule, indexOfClosingBracket);
-        String tempMolecule = molecule.substring(i + 1, indexOfClosingBracket);
-        parseBracketedMoleculePart(atomMap, numberAfterBrackets, tempMolecule);
-
-        i += determineIndexToSkip(numberAfterBrackets, tempMolecule.length());
-        return i;
-    }
-
     private boolean indicatesNewAtom(Map<Character, Character> brackets, char ch) {
         return isUpperCase(ch) || isaBracket(ch, brackets);
     }
 
-    private int determineIndexToSkip(int numberAfterBrackets, int indexToSkip) {
-        if(numberAfterBrackets>1){
-            indexToSkip += 1;
-        }
-        if(numberAfterBrackets>10){
-            indexToSkip+=1;
-        }
-        return indexToSkip;
-    }
-
-    private void parseBracketedMoleculePart(Map<String, Integer> atomMap, int numberAfterBrackets, String tempMolecule) {
-        Map<String, Integer> tempAtomMap = parse(tempMolecule);
-        for (String key: tempAtomMap.keySet()) {
-            Integer quantityInSubstring = tempAtomMap.get(key) * numberAfterBrackets;
-            atomMap.merge(key, quantityInSubstring, Integer::sum);
-        }
+    private boolean isaBracket(char ch, Map brackets) {
+        return brackets.get(ch) != null;
     }
 
     private void addAtomToList(Map<String, Integer> atomMap, StringBuilder element, StringBuilder quantity) {
@@ -87,8 +63,14 @@ public class MoleculeToAtomsParser {
         }
     }
 
-    private boolean isaBracket(char ch, Map brackets) {
-        return brackets.get(ch) != null;
+    private int processBracketSection(String molecule, Map<String, Integer> atomMap, int i, Map<Character, Character> brackets, char ch) {
+        int indexOfClosingBracket = molecule.lastIndexOf(brackets.get(ch));
+        int numberAfterBrackets = getNumberAfterBrackets(molecule, indexOfClosingBracket);
+        String tempMolecule = molecule.substring(i + 1, indexOfClosingBracket);
+        parseBracketedMoleculePart(atomMap, numberAfterBrackets, tempMolecule);
+
+        i += determineIndexToSkip(numberAfterBrackets, tempMolecule.length());
+        return i;
     }
 
     private int getNumberAfterBrackets(String molecule, int indexOfClosingBracket) {
@@ -103,6 +85,24 @@ public class MoleculeToAtomsParser {
             i++;
         }
         return getQuantity(numberAfterBrackets);
+    }
+
+    private void parseBracketedMoleculePart(Map<String, Integer> atomMap, int numberAfterBrackets, String tempMolecule) {
+        Map<String, Integer> tempAtomMap = parse(tempMolecule);
+        for (String key: tempAtomMap.keySet()) {
+            Integer quantityInSubstring = tempAtomMap.get(key) * numberAfterBrackets;
+            atomMap.merge(key, quantityInSubstring, Integer::sum);
+        }
+    }
+
+    private int determineIndexToSkip(int numberAfterBrackets, int indexToSkip) {
+        if(numberAfterBrackets>1){
+            indexToSkip += 1;
+        }
+        if(numberAfterBrackets>10){
+            indexToSkip+=1;
+        }
+        return indexToSkip;
     }
 
     private int getQuantity(StringBuilder quantity) {
