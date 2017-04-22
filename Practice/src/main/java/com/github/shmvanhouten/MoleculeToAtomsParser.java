@@ -9,12 +9,22 @@ import static java.lang.Integer.parseInt;
 
 public class MoleculeToAtomsParser {
 
+    private final Map<Character, Character> brackets = new HashMap<>();
+
+    public MoleculeToAtomsParser(){
+        brackets.put('(',')');
+        brackets.put('[',']');
+        brackets.put('{','}');
+    }
+
     public Map<String, Integer> parse(String molecule) {
         Map<String, Integer> atomMap = new TreeMap<>();
-        int i = 0;
-        Map<Character, Character> brackets = getBracketsMap();
+
         StringBuilder element = new StringBuilder();
         StringBuilder quantity = new StringBuilder();
+
+        int i = 0;
+
         while (i < molecule.length()){
             char ch = molecule.charAt(i);
 
@@ -25,12 +35,7 @@ public class MoleculeToAtomsParser {
             }
 
             if(isaBracket(ch, brackets)){
-                int indexOfClosingBracket = molecule.lastIndexOf(brackets.get(ch));
-                int numberAfterBrackets = getNumberAfterBrackets(molecule, indexOfClosingBracket);
-                String tempMolecule = molecule.substring(i + 1, indexOfClosingBracket);
-                parseBracketedMoleculePart(atomMap, numberAfterBrackets, tempMolecule);
-
-                i += determineIndexToSkip(numberAfterBrackets, tempMolecule.length());
+                i = processBracketSection(molecule, atomMap, i, brackets, ch);
             }
             if(isDigit(ch)){
                 quantity.append(ch);
@@ -42,6 +47,16 @@ public class MoleculeToAtomsParser {
         }
         addAtomToList(atomMap, element, quantity);
         return atomMap;
+    }
+
+    private int processBracketSection(String molecule, Map<String, Integer> atomMap, int i, Map<Character, Character> brackets, char ch) {
+        int indexOfClosingBracket = molecule.lastIndexOf(brackets.get(ch));
+        int numberAfterBrackets = getNumberAfterBrackets(molecule, indexOfClosingBracket);
+        String tempMolecule = molecule.substring(i + 1, indexOfClosingBracket);
+        parseBracketedMoleculePart(atomMap, numberAfterBrackets, tempMolecule);
+
+        i += determineIndexToSkip(numberAfterBrackets, tempMolecule.length());
+        return i;
     }
 
     private boolean indicatesNewAtom(Map<Character, Character> brackets, char ch) {
@@ -70,14 +85,6 @@ public class MoleculeToAtomsParser {
         if(element.length()>0){
             atomMap.put(element.toString(), getQuantity(quantity));
         }
-    }
-
-    private Map<Character,Character> getBracketsMap() {
-        Map<Character, Character> brackets = new HashMap<>();
-        brackets.put('(',')');
-        brackets.put('[',']');
-        brackets.put('{','}');
-        return  brackets;
     }
 
     private boolean isaBracket(char ch, Map brackets) {
