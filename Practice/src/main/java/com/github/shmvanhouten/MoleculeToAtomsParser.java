@@ -20,11 +20,13 @@ public class MoleculeToAtomsParser {
         while (i < molecule.length()){
             char ch = molecule.charAt(i);
 
-            if(isaBracket(ch, brackets)){
+            if(indicatesNewAtom(brackets, ch)){
                 addAtomToList(atomMap, element, quantity);
                 element = new StringBuilder();
                 quantity = new StringBuilder();
+            }
 
+            if(isaBracket(ch, brackets)){
                 int indexOfClosingBracket = molecule.lastIndexOf(brackets.get(ch));
                 int numberAfterBrackets = getNumberAfterBrackets(molecule, indexOfClosingBracket);
                 String tempMolecule = molecule.substring(i + 1, indexOfClosingBracket);
@@ -33,9 +35,6 @@ public class MoleculeToAtomsParser {
                 i += determineIndexToSkip(numberAfterBrackets, tempMolecule.length());
             }
             if(isUpperCase(ch)){
-                addAtomToList(atomMap, element, quantity);
-                element = new StringBuilder();
-                quantity = new StringBuilder();
                 element.append(ch);
             }
             if(isDigit(ch)){
@@ -48,6 +47,10 @@ public class MoleculeToAtomsParser {
         }
         addAtomToList(atomMap, element, quantity);
         return atomMap;
+    }
+
+    private boolean indicatesNewAtom(Map<Character, Character> brackets, char ch) {
+        return isUpperCase(ch) || isaBracket(ch, brackets);
     }
 
     private int determineIndexToSkip(int numberAfterBrackets, int indexToSkip) {
