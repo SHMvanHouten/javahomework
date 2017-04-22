@@ -34,13 +34,9 @@ public class MoleculeToAtomsParser {
 
                 i += determineIndexToSkip(numberAfterBrackets, tempMolecule.length());
             }
-            if(isUpperCase(ch)){
-                element.append(ch);
-            }
             if(isDigit(ch)){
                 quantity.append(ch);
-            }
-            if(isLowerCase(ch)){
+            }else{
                 element.append(ch);
             }
             i++;
