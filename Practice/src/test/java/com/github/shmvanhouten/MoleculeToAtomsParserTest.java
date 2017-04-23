@@ -17,6 +17,7 @@ public class MoleculeToAtomsParserTest {
         Map<String, Integer> atomMap = parser.parse("O2");
 
         assertThat(atomMap.get("O"),is(2));
+        assertThat("has 1 atom type", atomMap.size(), is(1));
     }
 
     @Test
@@ -24,6 +25,7 @@ public class MoleculeToAtomsParserTest {
         MoleculeToAtomsParser parser = new MoleculeToAtomsParser();
         Map<String, Integer> atomMap = parser.parse("Fe");
         assertThat(atomMap.get("Fe"),is(1));
+        assertThat("has 1 atom type", atomMap.size(), is(1));
     }
 
     @Test
@@ -33,6 +35,7 @@ public class MoleculeToAtomsParserTest {
 
         assertThat(atomMap.get("H"), is(2));
         assertThat(atomMap.get("O"),is(1));
+        assertThat("has 2 atom types", atomMap.size(), is(2));
     }
 
     @Test
@@ -43,6 +46,7 @@ public class MoleculeToAtomsParserTest {
         assertThat("H == 2",atomMap.get("H"), is(2));
         assertThat("O == 2",atomMap.get("O"),is(2));
         assertThat("Mg = 1",atomMap.get("Mg"), is(1));
+        assertThat("has 3 atom types", atomMap.size(), is(3));
     }
 
     @Test
@@ -56,5 +60,6 @@ public class MoleculeToAtomsParserTest {
         assertThat("O == 14",atomMap.get("O"),is(14));
         assertThat("N = 2",atomMap.get("N"), is(2));
         assertThat("S = $",atomMap.get("S"), is(4));
+        assertThat("has 4 atom types", atomMap.size(), is(4));
     }
 }
