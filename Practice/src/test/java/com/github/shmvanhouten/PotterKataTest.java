@@ -49,7 +49,18 @@ public class PotterKataTest {
         input.put(2,1);
         input.put(3,1);
         input.put(4,1);
-        String reason2 = "one of book 1, 2, 3 and 4 == 32 * 0.80";
-        assertThat(reason2, calculator.getTotalPrice(input), is("25.60 eur"));
+        String reason = "one of book 1, 2, 3 and 4 == 32 * 0.80";
+        assertThat(reason, calculator.getTotalPrice(input), is("25.60 eur"));
+    }
+
+    @Test
+    public void itShouldGiveNoDiscountForDoubleBooksIfThereIsOnlyOneOfTheOthers() throws Exception {
+        PotterKata calculator = new PotterKata();
+        Map<Integer, Integer> input = new HashMap<>();
+
+        input.put(1,2);
+        input.put(2,1);
+        String reason = "2 of book 1, 1 of book 2 == 16.00 * 0.95 + 8.00";
+        assertThat(reason, calculator.getTotalPrice(input), is("23.20 eur"));
     }
 }
