@@ -33,9 +33,16 @@ public class PotterKataTest {
     public void itShouldGiveThePriceWithAppropriateDiscount() throws Exception {
         PotterKata calculator = new PotterKata();
         Map<Integer, Integer> input = new HashMap<>();
+
         input.put(1,1);
         input.put(2,1);
         String reason = "one of book 1 and 1 of book 2 == 16 * 0.95";
         assertThat(reason, calculator.getTotalPrice(input), is("15.20 eur"));
+
+        input.put(3,2);
+        String reason2 = "one of book 1 and 2, two of book 3 == 32 * 0.90";
+        assertThat(reason2, calculator.getTotalPrice(input), is("28.80 eur"));
     }
+
+    
 }
