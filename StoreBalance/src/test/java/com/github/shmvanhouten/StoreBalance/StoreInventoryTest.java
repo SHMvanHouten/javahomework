@@ -85,7 +85,7 @@ public class StoreInventoryTest {
         StoreInventory inventory = new StoreInventory();
         inventory.addInventoryItem(PRODUCT_NAME, of(2017,JUNE,30), 20);
         inventory.addInventoryItem(PRODUCT_NAME, of(2017,JUNE,29), 15);
-        inventory.addInventoryItem("marsBars", of(2017,APRIL,20), 80);
+        inventory.addInventoryItem("marsBars", of(2017,MAY,20), 80);
 
         List<InventoryItem> items = inventory.getInventoryList();
 
