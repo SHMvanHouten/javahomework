@@ -22,9 +22,9 @@ public class PotterKata{
         BigDecimal totalPrice = new BigDecimal(0);
 
         Map<String, Integer> amountOfEachBook = sortShoppingCart(shoppingCart);
-        List<Integer> uniqueCounts = getUniqueCounts(amountOfEachBook);
+        List<Integer> bookStacks = makeBookStacks(amountOfEachBook);
 
-        for (Integer amountOfUniqueBooks : uniqueCounts) {
+        for (Integer amountOfUniqueBooks : bookStacks) {
             BigDecimal discount = discounts.get(amountOfUniqueBooks);
             totalPrice = totalPrice.add(new BigDecimal(amountOfUniqueBooks).multiply(bookPrice).multiply(discount));
         }
@@ -39,31 +39,31 @@ public class PotterKata{
         return amountOfEachBook;
     }
 
-    private List<Integer> getUniqueCounts(Map<String, Integer> amountOfEachBook){
-        List<Integer> uniqueCounts = new ArrayList<>();
+    private List<Integer> makeBookStacks(Map<String, Integer> amountOfEachBook){
+        List<Integer> bookStacks = new ArrayList<>();
         for (Integer uniqueBookQuantity : amountOfEachBook.values()) {
             for (int i = 0; i < uniqueBookQuantity; i++) {
-                if(uniqueCounts.size()>i){
-                    uniqueCounts.set(i, uniqueCounts.get(i) +1);
+                if(bookStacks.size()>i){
+                    bookStacks.set(i, bookStacks.get(i) +1);
                 }else{
-                    uniqueCounts.add(1);
+                    bookStacks.add(1);
                 }
             }
         }
-        uniqueCounts = checkForEdgeCase(uniqueCounts);
-        return uniqueCounts;
+        bookStacks = checkForEdgeCase(bookStacks);
+        return bookStacks;
     }
 
-    private List<Integer> checkForEdgeCase(List<Integer> uniqueCounts) {
-        int size = uniqueCounts.size();
+    private List<Integer> checkForEdgeCase(List<Integer> bookStacks) {
+        int size = bookStacks.size();
         if(size < 2){
-            return uniqueCounts;
+            return bookStacks;
         }
-        if(uniqueCounts.get(size - 1) == 3 && uniqueCounts.get(size - 2) == 5){
-            uniqueCounts.set(size - 1, 4);
-            uniqueCounts.set(size - 2, 4);
+        if(bookStacks.get(size - 1) == 3 && bookStacks.get(size - 2) == 5){
+            bookStacks.set(size - 1, 4);
+            bookStacks.set(size - 2, 4);
         }
-        return uniqueCounts;
+        return bookStacks;
     }
 
 
