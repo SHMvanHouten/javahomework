@@ -1,6 +1,8 @@
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class PotterKata{
@@ -20,24 +22,13 @@ public class PotterKata{
         BigDecimal totalPrice = new BigDecimal(0);
 
         Map<String, Integer> amountOfEachBook = sortShoppingCart(shoppingCart);
-        Map<Integer, Integer> uniqueCounts = getUniqueCounts(amountOfEachBook);
+        List<Integer> uniqueCounts = getUniqueCounts(amountOfEachBook);
 
-        for (Integer amountOfUniqueBooks : uniqueCounts.values()) {
+        for (Integer amountOfUniqueBooks : uniqueCounts) {
             BigDecimal discount = discounts.get(amountOfUniqueBooks);
             totalPrice = totalPrice.add(new BigDecimal(amountOfUniqueBooks).multiply(bookPrice).multiply(discount));
         }
         return totalPrice.setScale(2, RoundingMode.HALF_UP).toString() + " eu";
-    }
-
-    private Map<Integer, Integer> getUniqueCounts(Map<String, Integer> amountOfEachBook) {
-        Map<Integer, Integer> uniqueCounts = new HashMap<>();
-        for (Integer uniqueBookQuantity : amountOfEachBook.values()) {
-            for (int i = 0; i < uniqueBookQuantity; i++) {
-                uniqueCounts.merge(i, 1,Integer::sum);
-            }
-        }
-        System.out.println(uniqueCounts);
-        return uniqueCounts;
     }
 
     private Map<String, Integer> sortShoppingCart(String[] shoppingCart) {
@@ -46,6 +37,20 @@ public class PotterKata{
             amountOfEachBook.merge(item, 1, Integer::sum);
         }
         return amountOfEachBook;
+    }
+
+    private List<Integer> getUniqueCounts(Map<String, Integer> amountOfEachBook){
+        List<Integer> uniqueCounts = new ArrayList<>();
+        for (Integer uniqueBookQuantity : amountOfEachBook.values()) {
+            for (int i = 0; i < uniqueBookQuantity; i++) {
+                if(uniqueCounts.size()>i){
+                    uniqueCounts.set(i, uniqueCounts.get(i) +1);
+                }else{
+                    uniqueCounts.add(1);
+                }
+            }
+        }
+        return uniqueCounts;
     }
 
 
