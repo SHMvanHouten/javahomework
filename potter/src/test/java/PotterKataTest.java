@@ -52,4 +52,15 @@ public class PotterKataTest{
         String actual = potter.calculate(shoppingBasket);
         assertEquals(expected, actual);
     }
+
+    @Test
+    public void itShouldGiveTheMostDiscountPossibleForThisToo() throws Exception {
+        PotterKata potter = new PotterKata();
+        String expected = "81.20 eu";
+        String[] shoppingBasket = {"book 1", "book 1", "book 1", "book 2","book 2", "book 2", "book 3", "book 3" ,"book 3",
+                "book 4", "book 4","book 5", "book 5"};
+        String actual = potter.calculate(shoppingBasket);
+        assertEquals(expected, actual);
+    }
+
 }

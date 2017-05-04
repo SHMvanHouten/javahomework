@@ -50,6 +50,19 @@ public class PotterKata{
                 }
             }
         }
+        uniqueCounts = checkForEdgeCase(uniqueCounts);
+        return uniqueCounts;
+    }
+
+    private List<Integer> checkForEdgeCase(List<Integer> uniqueCounts) {
+        int size = uniqueCounts.size();
+        if(size < 2){
+            return uniqueCounts;
+        }
+        if(uniqueCounts.get(size - 1) == 3 && uniqueCounts.get(size - 2) == 5){
+            uniqueCounts.set(size - 1, 4);
+            uniqueCounts.set(size - 2, 4);
+        }
         return uniqueCounts;
     }
 
