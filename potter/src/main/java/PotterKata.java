@@ -22,7 +22,7 @@ public class PotterKata{
         BigDecimal totalPrice = new BigDecimal(0);
 
         Map<String, Integer> amountOfEachBook = sortShoppingCart(shoppingCart);
-        List<Integer> bookStacks = makeBookStacks(amountOfEachBook);
+        List<Integer> bookStacks = makeBookStacksOfUniqueTitles(amountOfEachBook);
 
         for (Integer amountOfUniqueBooks : bookStacks) {
             BigDecimal discount = discounts.get(amountOfUniqueBooks);
@@ -39,7 +39,7 @@ public class PotterKata{
         return amountOfEachBook;
     }
 
-    private List<Integer> makeBookStacks(Map<String, Integer> amountOfEachBook){
+    private List<Integer> makeBookStacksOfUniqueTitles(Map<String, Integer> amountOfEachBook){
         List<Integer> bookStacks = new ArrayList<>();
         for (Integer uniqueBookQuantity : amountOfEachBook.values()) {
             for (int i = 0; i < uniqueBookQuantity; i++) {
