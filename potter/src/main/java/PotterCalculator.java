@@ -35,12 +35,9 @@ public class PotterCalculator {
         if(tempPrice.compareTo(totalPrice) == -1 || totalPrice.equals(BigDecimal.ZERO)){
             totalPrice = tempPrice;
         }
-        if(bookStack.get(0) == 1){
+        if(bookStack.get(0) <= 1){
             return totalPrice;
         }
-        // take one off the last number that is >1 and distribute it with the other numbers after that
-        // making sure that no number is larger than the one you just took 1 off of.
-        // then, recursively getTotalPrice on that List.
         Integer index = bookStack.size() -1;
         Integer totalAmountAfterTargetIndex = 0;
         while(bookStack.get(index) == 1 && index>=0){
@@ -52,12 +49,20 @@ public class PotterCalculator {
         bookStack.set(index, bookStack.get(index) -1);
         //and add it to the totalAmount after that number:
         totalAmountAfterTargetIndex++;
-        if(bookStack.get(index) == 1){
-            List<Integer> newBookStack = bookStack.subList(0, index);
-            for (int j = 0; j <= totalAmountAfterTargetIndex; j++) {
+        Integer valueAtIndex = bookStack.get(index);
+        List<Integer> newBookStack = bookStack.subList(0, index + 1);
+        if(valueAtIndex == 1){
+            for (int j = 0; j < totalAmountAfterTargetIndex; j++) {
                 newBookStack.add(1);
             }
-            getTotalPrice(bookStack, totalPrice);
+            totalPrice = getTotalPrice(newBookStack, totalPrice);
+        }else{
+            while (totalAmountAfterTargetIndex > valueAtIndex){
+                newBookStack.add(valueAtIndex);
+                totalAmountAfterTargetIndex -= valueAtIndex;
+            }
+            newBookStack.add(totalAmountAfterTargetIndex);
+            totalPrice = getTotalPrice(newBookStack, totalPrice);
         }
         return totalPrice;
     }
