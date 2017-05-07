@@ -46,7 +46,6 @@ public class PotterCalculatorTest {
         assertEquals(expected, actual);
     }
 
-    @Ignore
     @Test
     public void itShouldGiveTheMostDiscountPossible() throws Exception {
         PotterCalculator potter = new PotterCalculator();

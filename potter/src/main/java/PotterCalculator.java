@@ -32,7 +32,7 @@ public class PotterCalculator {
 
     private BigDecimal getTotalPrice(List<Integer> bookStack, BigDecimal totalPrice) {
         BigDecimal tempPrice = calculatePrice(bookStack);
-        if(tempPrice.equals(totalPrice) || totalPrice.equals(BigDecimal.ZERO)){
+        if(tempPrice.compareTo(totalPrice) == -1 || totalPrice.equals(BigDecimal.ZERO)){
             totalPrice = tempPrice;
         }
         if(bookStack.get(0) == 1){
