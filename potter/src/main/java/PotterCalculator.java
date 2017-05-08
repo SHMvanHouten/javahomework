@@ -1,14 +1,10 @@
 import java.math.BigDecimal;
 import java.math.RoundingMode;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class PotterCalculator {
     private Map<Integer, BigDecimal> discounts = new HashMap<>();
     private BigDecimal bookPrice = new BigDecimal("8.00");
-    private Integer largestAmountOfASingleTitle;
 
 
     public PotterCalculator(){
@@ -21,36 +17,25 @@ public class PotterCalculator {
 
 
     public String calculate(String[] shoppingCart){
-        BigDecimal totalPrice = new BigDecimal(0);
+        BigDecimal totalPrice;
         Map<String, Integer> amountOfEachBook = sortShoppingCart(shoppingCart);
-        largestAmountOfASingleTitle = getLargestAmountOfASingleTitle(amountOfEachBook);
         List<Integer> bookStacks = makeStartingBookStacks(amountOfEachBook);
         totalPrice = calculatePrice(bookStacks);
-        totalPrice = calculatePriceForAllPossibleStacks(bookStacks, totalPrice);
+        totalPrice = calculatePriceForAllPossibleStacks(bookStacks, totalPrice, amountOfEachBook);
 
         return totalPrice.setScale(2, RoundingMode.HALF_UP).toString() + " eu";
     }
 
-    private Integer getLargestAmountOfASingleTitle(Map<String, Integer> amountOfEachBook) {
-        Integer biggestNumber = 0;
-        for (Integer amount : amountOfEachBook.values()) {
-            if(amount > biggestNumber){
-                biggestNumber = amount;
-            }
-        }
-        return biggestNumber;
-    }
-
-    private BigDecimal calculatePriceForAllPossibleStacks(List<Integer> bookStack, BigDecimal totalPrice) {
+    private BigDecimal calculatePriceForAllPossibleStacks(List<Integer> bookStack, BigDecimal totalPrice, Map<String, Integer> sortedShoppingCart) {
         BigDecimal tempPrice = calculatePrice(bookStack);
-        if(tempPrice.compareTo(totalPrice) == -1 && bookStack.size() >= largestAmountOfASingleTitle){
+        if(tempPrice.compareTo(totalPrice) == -1 && checkStacksAgainstShoppingCart(bookStack, sortedShoppingCart)){
             totalPrice = tempPrice;
         }
         if(bookStack.get(0) <= 1){
             return totalPrice;
         }
         List<Integer> newBookStack = makeNextBookStack(bookStack);
-        totalPrice = calculatePriceForAllPossibleStacks(newBookStack, totalPrice);
+        totalPrice = calculatePriceForAllPossibleStacks(newBookStack, totalPrice, sortedShoppingCart);
         return totalPrice;
     }
 
@@ -83,7 +68,7 @@ public class PotterCalculator {
     }
 
 
-    private Map<String, Integer> sortShoppingCart(String[] shoppingCart) {
+    Map<String, Integer> sortShoppingCart(String[] shoppingCart) {
         Map<String, Integer> amountOfEachBook = new HashMap<>();
         for(String item: shoppingCart){
             amountOfEachBook.merge(item, 1, Integer::sum);
@@ -91,7 +76,7 @@ public class PotterCalculator {
         return amountOfEachBook;
     }
 
-    private List<Integer> makeStartingBookStacks(Map<String, Integer> amountOfEachBook){
+     List<Integer> makeStartingBookStacks(Map<String, Integer> amountOfEachBook){
         List<Integer> bookStacks = new ArrayList<>();
         for (Integer uniqueBookQuantity : amountOfEachBook.values()) {
             for (int i = 0; i < uniqueBookQuantity; i++) {
@@ -106,6 +91,22 @@ public class PotterCalculator {
     }
 
 
-
-
+    public boolean checkStacksAgainstShoppingCart(List<Integer> bookStacks, Map<String, Integer> sortedShoppingCart) {
+        List<Integer> bookAmounts = new ArrayList<>(sortedShoppingCart.values());
+        Collections.sort(bookAmounts);
+        Collections.reverse(bookAmounts);
+        for (Integer stack: bookStacks) {
+            for (int index = 0; index < bookAmounts.size(); index++) {
+                Integer bookAmount = bookAmounts.get(index);
+                if(bookAmount >0 && stack >0){
+                    bookAmounts.set(index, bookAmount - 1);
+                    stack--;
+                }
+            }
+            if(stack >0){
+                return false;
+            }
+            }
+        return true;
+    }
 }
