@@ -13,7 +13,7 @@ public class PotterCalculatorTest {
         PotterCalculator potter = new PotterCalculator();
         String expected = "8.00 eu";
         String[] shoppingBasket = {"book 1"};
-        String actual = potter.calculate(shoppingBasket);
+        String actual = potter.calculateTotalPrice(shoppingBasket);
         assertEquals(expected, actual);
     }
 
@@ -22,11 +22,11 @@ public class PotterCalculatorTest {
         PotterCalculator potter = new PotterCalculator();
         String expected = "15.20 eu";
         String[] shoppingBasket = {"book 1", "book 2"};
-        String actual = potter.calculate(shoppingBasket);
+        String actual = potter.calculateTotalPrice(shoppingBasket);
         assertEquals(expected, actual);
         expected = "16.00 eu";
         String[] shoppingBasket2 = {"book 1", "book 1"};
-        actual = potter.calculate(shoppingBasket2);
+        actual = potter.calculateTotalPrice(shoppingBasket2);
         assertEquals(expected, actual);
     }
 
@@ -35,7 +35,7 @@ public class PotterCalculatorTest {
         PotterCalculator potter = new PotterCalculator();
         String expected = "25.60 eu";
         String[] shoppingBasket = {"book 1", "book 2", "book 3", "book 4"};
-        String actual = potter.calculate(shoppingBasket);
+        String actual = potter.calculateTotalPrice(shoppingBasket);
         assertEquals(expected, actual);
     }
 
@@ -44,7 +44,7 @@ public class PotterCalculatorTest {
         PotterCalculator potter = new PotterCalculator();
         String expected = "23.20 eu";
         String[] shoppingBasket = {"book 1", "book 2", "book 2"};
-        String actual = potter.calculate(shoppingBasket);
+        String actual = potter.calculateTotalPrice(shoppingBasket);
         assertEquals(expected, actual);
     }
 
@@ -53,7 +53,7 @@ public class PotterCalculatorTest {
         PotterCalculator potter = new PotterCalculator();
         String expected = "51.20 eu";
         String[] shoppingBasket = {"book 1", "book 1", "book 2", "book 2", "book 3", "book 3","book 4","book 5"};
-        String actual = potter.calculate(shoppingBasket);
+        String actual = potter.calculateTotalPrice(shoppingBasket);
         assertEquals(expected, actual);
     }
 
@@ -63,7 +63,7 @@ public class PotterCalculatorTest {
         String expected = "81.20 eu";
         String[] shoppingBasket = {"book 1", "book 1", "book 1", "book 2","book 2", "book 2", "book 3", "book 3" ,"book 3",
                 "book 4", "book 4","book 5", "book 5"};
-        String actual = potter.calculate(shoppingBasket);
+        String actual = potter.calculateTotalPrice(shoppingBasket);
         assertEquals(expected, actual);
     }
 
@@ -73,7 +73,7 @@ public class PotterCalculatorTest {
         String expected = "70.00 eu";
         String[] shoppingBasket = {"book 1", "book 1", "book 1", "book 1","book 1", "book 1", "book 2", "book 3",
                 "book 4", "book 5"};
-        String actual = potter.calculate(shoppingBasket);
+        String actual = potter.calculateTotalPrice(shoppingBasket);
         assertEquals(expected, actual);
     }
 
@@ -83,7 +83,7 @@ public class PotterCalculatorTest {
         String expected = "60.40 eu";
         String[] shoppingBasket = {"book 1", "book 2", "book 1", "book 2","book 1", "book 2", "book 3",
                 "book 4", "book 5"};
-        String actual = potter.calculate(shoppingBasket);
+        String actual = potter.calculateTotalPrice(shoppingBasket);
         assertEquals(expected, actual);
     }
 
