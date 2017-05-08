@@ -74,9 +74,8 @@ public class PotterCalculator {
             amountOfEachBook.merge(item, 1, Integer::sum);
         }
         List<Integer> bookAmounts = new ArrayList<>(amountOfEachBook.values());
-        Collections.sort(bookAmounts);
-        Collections.reverse(bookAmounts);
-        return bookAmounts;
+        Collections.sort(bookAmounts, Collections.reverseOrder());
+        return bookAmounts; 
     }
 
      List<Integer> makeStartingBookStacks(List<Integer> amountOfEachBook){
@@ -106,7 +105,7 @@ public class PotterCalculator {
             if(stack >0){
                 return false;
             }
-            }
+        }
         return true;
     }
 }
