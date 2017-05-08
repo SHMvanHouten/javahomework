@@ -93,13 +93,13 @@ public class PotterCalculatorTest {
         String[] shoppingBasket = {"book 1", "book 2", "book 2"};
         List<Integer> sortedShoppingCart = potter.sortShoppingCart(shoppingBasket);
         List<Integer> startingBookStack = potter.makeStartingBookStacks(sortedShoppingCart);
-        boolean actual = potter.checkStacksAgainstShoppingCart(startingBookStack, sortedShoppingCart);
+        boolean actual = potter.isStackPossible(startingBookStack, sortedShoppingCart);
         assertEquals(true, actual);
         String[] shoppingBasket2 = {"book 1", "book 2", "book 1", "book 2","book 1", "book 2", "book 3",
                 "book 4", "book 5"};
         List<Integer> sortedShoppingCart2 = potter.sortShoppingCart(shoppingBasket2);
         List<Integer> bookStack = getFilledArrayList();
-        boolean actual2 = potter.checkStacksAgainstShoppingCart(bookStack, sortedShoppingCart2);
+        boolean actual2 = potter.isStackPossible(bookStack, sortedShoppingCart2);
         assertEquals(false, actual2);
     }
 

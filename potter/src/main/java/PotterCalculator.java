@@ -30,7 +30,7 @@ public class PotterCalculator {
 
     private BigDecimal calculatePriceForAllPossibleStacks(List<Integer> bookStacks, BigDecimal totalPrice, List<Integer> sortedShoppingCart) {
         BigDecimal tempPrice = calculatePrice(bookStacks);
-        if(tempPrice.compareTo(totalPrice) == -1 && checkStacksAgainstShoppingCart(bookStacks, sortedShoppingCart)){
+        if(tempPrice.compareTo(totalPrice) == -1 && isStackPossible(bookStacks, sortedShoppingCart)){
             totalPrice = tempPrice;
         }
         if(bookStacks.get(0) <= 1){
@@ -73,7 +73,7 @@ public class PotterCalculator {
         return newBookStack;
     }
 
-    boolean checkStacksAgainstShoppingCart(List<Integer> bookStacks, List<Integer> sortedShoppingCart) {
+    boolean isStackPossible(List<Integer> bookStacks, List<Integer> sortedShoppingCart) {
         for (Integer stack: bookStacks) {
             for (int index = 0; index < sortedShoppingCart.size(); index++) {
                 Integer bookAmount = sortedShoppingCart.get(index);
