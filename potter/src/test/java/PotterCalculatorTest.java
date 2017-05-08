@@ -1,9 +1,7 @@
-import org.junit.Ignore;
 import org.junit.Test;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 import static org.junit.Assert.*;
 
@@ -93,13 +91,13 @@ public class PotterCalculatorTest {
     public void itShouldTestIfABookStackCanConvertToAShoppingCart() throws Exception {
         PotterCalculator potter = new PotterCalculator();
         String[] shoppingBasket = {"book 1", "book 2", "book 2"};
-        Map<String, Integer> sortedShoppingCart = potter.sortShoppingCart(shoppingBasket);
+        List<Integer> sortedShoppingCart = potter.sortShoppingCart(shoppingBasket);
         List<Integer> startingBookStack = potter.makeStartingBookStacks(sortedShoppingCart);
         boolean actual = potter.checkStacksAgainstShoppingCart(startingBookStack, sortedShoppingCart);
         assertEquals(true, actual);
         String[] shoppingBasket2 = {"book 1", "book 2", "book 1", "book 2","book 1", "book 2", "book 3",
                 "book 4", "book 5"};
-        Map<String, Integer> sortedShoppingCart2 = potter.sortShoppingCart(shoppingBasket2);
+        List<Integer> sortedShoppingCart2 = potter.sortShoppingCart(shoppingBasket2);
         List<Integer> bookStack = getFilledArrayList();
         boolean actual2 = potter.checkStacksAgainstShoppingCart(bookStack, sortedShoppingCart2);
         assertEquals(false, actual2);

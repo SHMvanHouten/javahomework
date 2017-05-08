@@ -18,7 +18,7 @@ public class PotterCalculator {
 
     public String calculate(String[] shoppingCart){
         BigDecimal totalPrice;
-        Map<String, Integer> amountOfEachBook = sortShoppingCart(shoppingCart);
+        List<Integer> amountOfEachBook = sortShoppingCart(shoppingCart);
         List<Integer> bookStacks = makeStartingBookStacks(amountOfEachBook);
         totalPrice = calculatePrice(bookStacks);
         totalPrice = calculatePriceForAllPossibleStacks(bookStacks, totalPrice, amountOfEachBook);
@@ -26,7 +26,7 @@ public class PotterCalculator {
         return totalPrice.setScale(2, RoundingMode.HALF_UP).toString() + " eu";
     }
 
-    private BigDecimal calculatePriceForAllPossibleStacks(List<Integer> bookStack, BigDecimal totalPrice, Map<String, Integer> sortedShoppingCart) {
+    private BigDecimal calculatePriceForAllPossibleStacks(List<Integer> bookStack, BigDecimal totalPrice, List<Integer> sortedShoppingCart) {
         BigDecimal tempPrice = calculatePrice(bookStack);
         if(tempPrice.compareTo(totalPrice) == -1 && checkStacksAgainstShoppingCart(bookStack, sortedShoppingCart)){
             totalPrice = tempPrice;
@@ -68,17 +68,20 @@ public class PotterCalculator {
     }
 
 
-    Map<String, Integer> sortShoppingCart(String[] shoppingCart) {
+    List<Integer> sortShoppingCart(String[] shoppingCart) {
         Map<String, Integer> amountOfEachBook = new HashMap<>();
         for(String item: shoppingCart){
             amountOfEachBook.merge(item, 1, Integer::sum);
         }
-        return amountOfEachBook;
+        List<Integer> bookAmounts = new ArrayList<>(amountOfEachBook.values());
+        Collections.sort(bookAmounts);
+        Collections.reverse(bookAmounts);
+        return bookAmounts;
     }
 
-     List<Integer> makeStartingBookStacks(Map<String, Integer> amountOfEachBook){
+     List<Integer> makeStartingBookStacks(List<Integer> amountOfEachBook){
         List<Integer> bookStacks = new ArrayList<>();
-        for (Integer uniqueBookQuantity : amountOfEachBook.values()) {
+        for (Integer uniqueBookQuantity : amountOfEachBook) {
             for (int i = 0; i < uniqueBookQuantity; i++) {
                 if(bookStacks.size()>i){
                     bookStacks.set(i, bookStacks.get(i) +1);
@@ -91,15 +94,12 @@ public class PotterCalculator {
     }
 
 
-    public boolean checkStacksAgainstShoppingCart(List<Integer> bookStacks, Map<String, Integer> sortedShoppingCart) {
-        List<Integer> bookAmounts = new ArrayList<>(sortedShoppingCart.values());
-        Collections.sort(bookAmounts);
-        Collections.reverse(bookAmounts);
+    public boolean checkStacksAgainstShoppingCart(List<Integer> bookStacks, List<Integer> sortedShoppingCart) {
         for (Integer stack: bookStacks) {
-            for (int index = 0; index < bookAmounts.size(); index++) {
-                Integer bookAmount = bookAmounts.get(index);
+            for (int index = 0; index < sortedShoppingCart.size(); index++) {
+                Integer bookAmount = sortedShoppingCart.get(index);
                 if(bookAmount >0 && stack >0){
-                    bookAmounts.set(index, bookAmount - 1);
+                    sortedShoppingCart.set(index, bookAmount - 1);
                     stack--;
                 }
             }
