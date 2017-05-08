@@ -38,33 +38,28 @@ public class PotterCalculator {
         if(bookStack.get(0) <= 1){
             return totalPrice;
         }
+        List<Integer> newBookStack = makeNextBookStack(bookStack);
+        totalPrice = getTotalPrice(newBookStack, totalPrice);
+        return totalPrice;
+    }
+
+    private List<Integer> makeNextBookStack(List<Integer> bookStack) {
         Integer index = bookStack.size() -1;
-        Integer totalAmountAfterTargetIndex = 0;
+        Integer totalAmountOfOnesAfterTargetIndex = 1;
         while(bookStack.get(index) == 1 && index>=0){
-            //find the index of the number bigger than one and how many ones come after it.
-            totalAmountAfterTargetIndex++;
+            totalAmountOfOnesAfterTargetIndex++;
             index--;
         }
-        //take one away from the first number from the right higher than 1
-        bookStack.set(index, bookStack.get(index) -1);
-        //and add it to the totalAmount after that number:
-        totalAmountAfterTargetIndex++;
-        Integer valueAtIndex = bookStack.get(index);
+        int lastBigNumber = bookStack.get(index) - 1;
+        bookStack.set(index, lastBigNumber);
+
         List<Integer> newBookStack = bookStack.subList(0, index + 1);
-        if(valueAtIndex == 1){
-            for (int j = 0; j < totalAmountAfterTargetIndex; j++) {
-                newBookStack.add(1);
-            }
-            totalPrice = getTotalPrice(newBookStack, totalPrice);
-        }else{
-            while (totalAmountAfterTargetIndex > valueAtIndex){
-                newBookStack.add(valueAtIndex);
-                totalAmountAfterTargetIndex -= valueAtIndex;
-            }
-            newBookStack.add(totalAmountAfterTargetIndex);
-            totalPrice = getTotalPrice(newBookStack, totalPrice);
+        while (totalAmountOfOnesAfterTargetIndex > lastBigNumber){
+            newBookStack.add(lastBigNumber);
+            totalAmountOfOnesAfterTargetIndex -= lastBigNumber;
         }
-        return totalPrice;
+        newBookStack.add(totalAmountOfOnesAfterTargetIndex);
+        return newBookStack;
     }
 
     private BigDecimal calculatePrice(List<Integer> bookStacks) {

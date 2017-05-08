@@ -64,4 +64,26 @@ public class PotterCalculatorTest {
         String actual = potter.calculate(shoppingBasket);
         assertEquals(expected, actual);
     }
+
+    @Test
+    public void edgeCaseTest() throws Exception {
+        PotterCalculator potter = new PotterCalculator();
+        String expected = "70.00 eu";
+        String[] shoppingBasket = {"book 1", "book 1", "book 1", "book 1","book 1", "book 1", "book 2", "book 3",
+                "book 4", "book 5"};
+        String actual = potter.calculate(shoppingBasket);
+        assertEquals(expected, actual);
+    }
+
+        @Test
+    public void anotherEdgeCaseTest() throws Exception {
+        PotterCalculator potter = new PotterCalculator();
+        String expected = "60.40 eu";
+        String[] shoppingBasket = {"book 1", "book 2", "book 1", "book 2","book 1", "book 2", "book 3",
+                "book 4", "book 5"};
+        String actual = potter.calculate(shoppingBasket);
+        assertEquals(expected, actual);
+    }
+
+
 }
