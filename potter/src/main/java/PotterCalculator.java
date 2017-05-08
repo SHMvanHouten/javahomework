@@ -8,7 +8,7 @@ import java.util.Map;
 public class PotterCalculator {
     private Map<Integer, BigDecimal> discounts = new HashMap<>();
     private BigDecimal bookPrice = new BigDecimal("8.00");
-
+    private Integer largestAmountOfASingleTitle;
 
 
     public PotterCalculator(){
@@ -23,23 +23,34 @@ public class PotterCalculator {
     public String calculate(String[] shoppingCart){
         BigDecimal totalPrice = new BigDecimal(0);
         Map<String, Integer> amountOfEachBook = sortShoppingCart(shoppingCart);
+        largestAmountOfASingleTitle = getLargestAmountOfASingleTitle(amountOfEachBook);
         List<Integer> bookStacks = makeStartingBookStacks(amountOfEachBook);
-
-        totalPrice = getTotalPrice(bookStacks, totalPrice);
+        totalPrice = calculatePrice(bookStacks);
+        totalPrice = calculatePriceForAllPossibleStacks(bookStacks, totalPrice);
 
         return totalPrice.setScale(2, RoundingMode.HALF_UP).toString() + " eu";
     }
 
-    private BigDecimal getTotalPrice(List<Integer> bookStack, BigDecimal totalPrice) {
+    private Integer getLargestAmountOfASingleTitle(Map<String, Integer> amountOfEachBook) {
+        Integer biggestNumber = 0;
+        for (Integer amount : amountOfEachBook.values()) {
+            if(amount > biggestNumber){
+                biggestNumber = amount;
+            }
+        }
+        return biggestNumber;
+    }
+
+    private BigDecimal calculatePriceForAllPossibleStacks(List<Integer> bookStack, BigDecimal totalPrice) {
         BigDecimal tempPrice = calculatePrice(bookStack);
-        if(tempPrice.compareTo(totalPrice) == -1 || totalPrice.equals(BigDecimal.ZERO)){
+        if(tempPrice.compareTo(totalPrice) == -1 && bookStack.size() >= largestAmountOfASingleTitle){
             totalPrice = tempPrice;
         }
         if(bookStack.get(0) <= 1){
             return totalPrice;
         }
         List<Integer> newBookStack = makeNextBookStack(bookStack);
-        totalPrice = getTotalPrice(newBookStack, totalPrice);
+        totalPrice = calculatePriceForAllPossibleStacks(newBookStack, totalPrice);
         return totalPrice;
     }
 
