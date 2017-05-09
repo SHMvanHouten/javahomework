@@ -103,6 +103,29 @@ public class PotterCalculatorTest {
         assertEquals(false, actual2);
     }
 
+    @Test
+    public void itShouldWorkForEdgeCaseStacks543() throws Exception {
+        PotterCalculator potter = new PotterCalculator();
+        String expected = "76.80 eu";
+        String[] shoppingBasket = {"book 1", "book 1", "book 1", "book 2","book 2", "book 2", "book 3", "book 3" ,"book 3",
+                "book 4", "book 4","book 5"};
+        String actual = potter.calculateTotalPrice(shoppingBasket);
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    public void itShouldWorkForEdgeCaseStacks555432() throws Exception {
+        // best price is not for 4,4,4,4,4,4 but for 5,5,4,4,4,2
+        PotterCalculator potter = new PotterCalculator();
+        String expected = "152.00 eu";
+        String[] shoppingBasket = {"book 1", "book 1", "book 1", "book 1", "book 1", "book 1",
+                "book 2","book 2", "book 2", "book 2", "book 2", "book 2",
+                "book 3", "book 3" ,"book 3","book 3","book 3",
+                "book 4", "book 4","book 4","book 4","book 5","book 5","book 5"};
+        String actual = potter.calculateTotalPrice(shoppingBasket);
+        assertEquals(expected, actual);
+    }
+
     private List<Integer> getFilledArrayList() {
         List<Integer> bookStack = new ArrayList<>();
         bookStack.add(0, 4);

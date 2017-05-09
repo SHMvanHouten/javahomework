@@ -6,7 +6,7 @@ import static java.util.Comparator.*;
 
 public class PotterCalculator {
     private Map<Integer, BigDecimal> discounts = new HashMap<>();
-    private BigDecimal bookPrice = new BigDecimal("8.00");
+    private final BigDecimal bookPrice = new BigDecimal("8.00");
 
 
     public PotterCalculator(){

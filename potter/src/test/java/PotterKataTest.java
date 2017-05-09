@@ -82,4 +82,25 @@ public class PotterKataTest{
         String actual = potter.calculate(shoppingBasket);
         assertEquals(expected, actual);
     }
+
+    @Test
+    public void itShouldWorkForEdgeCaseStacks543() throws Exception {
+        PotterKata potter = new PotterKata();
+        String expected = "76.80 eu";
+        String[] shoppingBasket = {"book 5", "book 5", "book 5", "book 2","book 2", "book 2", "book 3", "book 3" ,"book 3",
+                "book 4", "book 4","book 1"};
+        String actual = potter.calculate(shoppingBasket);
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    public void itShouldWorkForEdgeCaseStacks5432() throws Exception {
+        PotterKata potter = new PotterKata();
+        String expected = "92.00 eu";
+        String[] shoppingBasket = {"book 5", "book 5", "book 5", "book 5", "book 2", "book 2","book 2", "book 2",
+                "book 3", "book 3" ,"book 3", "book 4", "book 4","book 1"};
+        String actual = potter.calculate(shoppingBasket);
+        assertEquals(expected, actual);
+    }
+
 }

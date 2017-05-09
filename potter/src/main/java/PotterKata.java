@@ -7,7 +7,7 @@ import java.util.Map;
 
 public class PotterKata{
     private Map<Integer, BigDecimal> discounts = new HashMap<>();
-    private BigDecimal bookPrice = new BigDecimal("8.00");
+    private final BigDecimal bookPrice = new BigDecimal("8.00");
 
     public PotterKata(){
         discounts.put(1, new BigDecimal("1"));
@@ -59,9 +59,19 @@ public class PotterKata{
         if(size < 2){
             return bookStacks;
         }
-        if(bookStacks.get(size - 1) == 3 && bookStacks.get(size - 2) == 5){
-            bookStacks.set(size - 1, 4);
-            bookStacks.set(size - 2, 4);
+        int index = 0;
+        while(bookStacks.get(index) == 5){
+            Integer bookStackAtIndex = bookStacks.get(index);
+            Integer bookStackAtIndexPlusOne = bookStacks.get(index + 1);
+            if((bookStackAtIndex + bookStackAtIndexPlusOne) % 8 == 0){
+                bookStacks.set(index, 4);
+                bookStacks.set(index + 1, 4);
+            }else if((bookStackAtIndex + bookStackAtIndexPlusOne + bookStacks.get(index + 2)) % 12 == 0){
+                bookStacks.set(index, 4);
+                bookStacks.set(index + 1, 4);
+                bookStacks.set(index + 2, 4);
+            }
+            index++;
         }
         return bookStacks;
     }
