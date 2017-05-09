@@ -103,4 +103,17 @@ public class PracticeTest {
         String testSentence = "CATA";
         assertThat(Practice.getComplementBase(inputSentence),is(testSentence));
     }
+
+    @Test
+    public void itShouldSeeIfTheSqrtIsAnInt() throws Exception {
+        long number = 144L;
+        assertThat(Practice.getSquareRoot(number), is(12L));
+    }
+
+    @Test
+    public void itShouldGetTheNextBiggestSquare() throws Exception {
+        long number = 144L;
+        long expected = 169L;
+        assertThat(Practice.getNextPerfectSquare(number), is(expected));
+    }
 }

@@ -7,6 +7,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class Practice {
+
     public String getPositionInAlphabet(char alphabet) {
         Character referenceChar = '`';
         int position = Math.abs(referenceChar.compareTo(alphabet));
@@ -132,5 +133,22 @@ public class Practice {
             complementaryBaseString.append(basePairing.get(base));
         }
         return complementaryBaseString.toString();
+    }
+
+    public static long getSquareRoot(long number) {
+        double sqrtOfNumber = Math.sqrt(number);
+        long sqrtToLong = (long) sqrtOfNumber;
+        if(Math.pow(sqrtOfNumber, 2) != Math.pow(sqrtToLong, 2)){
+            return -1L;
+        }
+        return sqrtToLong;
+    }
+
+    public static long getNextPerfectSquare(long number) {
+        long sqrt = getSquareRoot(number);
+        if(sqrt == -1L){
+            return sqrt;
+        }
+        return (long) Math.pow((sqrt + 1), 2);
     }
 }
