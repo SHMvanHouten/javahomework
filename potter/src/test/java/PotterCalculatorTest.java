@@ -1,7 +1,6 @@
 import org.junit.Test;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 import static org.junit.Assert.*;
 
@@ -98,7 +97,7 @@ public class PotterCalculatorTest {
         String[] shoppingBasket2 = {"book 1", "book 2", "book 1", "book 2","book 1", "book 2", "book 3",
                 "book 4", "book 5"};
         List<Integer> sortedShoppingCart2 = potter.sortShoppingCart(shoppingBasket2);
-        List<Integer> bookStack = getFilledArrayList();
+        List<Integer> bookStack = new ArrayList<>(Arrays.asList(4,4,1));
         boolean actual2 = potter.isStackPossible(bookStack, sortedShoppingCart2);
         assertEquals(false, actual2);
     }
@@ -126,11 +125,4 @@ public class PotterCalculatorTest {
         assertEquals(expected, actual);
     }
 
-    private List<Integer> getFilledArrayList() {
-        List<Integer> bookStack = new ArrayList<>();
-        bookStack.add(0, 4);
-        bookStack.add(1, 4);
-        bookStack.add(2, 1);
-        return bookStack;
-    }
 }
