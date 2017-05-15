@@ -5,8 +5,8 @@ import static com.google.common.base.Preconditions.checkArgument;
 
 
 public class Money {
-    private BigDecimal amount;
-    private String currency;
+    private final BigDecimal amount;
+    private final String currency;
 
     Money(String amountInput, String currencyInput) throws IllegalArgumentException{
         BigDecimal parsedAmount = new BigDecimal(amountInput);
@@ -18,6 +18,10 @@ public class Money {
 
     public BigDecimal getAmount() {
         return amount;
+    }
+
+    public String getCurrency() {
+        return currency;
     }
 
     public Money add(Money amountToAdd) {
@@ -46,10 +50,6 @@ public class Money {
 
         if (amount != null ? !amount.equals(money.amount) : money.amount != null) return false;
         return currency != null ? currency.equals(money.currency) : money.currency == null;
-    }
-
-    public String getCurrency() {
-        return currency;
     }
 
     @Override

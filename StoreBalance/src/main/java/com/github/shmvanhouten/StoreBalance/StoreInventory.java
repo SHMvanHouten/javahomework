@@ -133,7 +133,7 @@ public class StoreInventory {
                 removeEntry(tempProduct);
                 System.out.println("Product removed.");
             } catch (UnknownProductException e) {
-
+                System.err.println("Product not fount in inventory" + tempProduct.getName());
             }
         }else{
             inventoryItem.removeFromQuantity(amount);

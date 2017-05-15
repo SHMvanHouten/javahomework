@@ -85,7 +85,7 @@ public class StoreInventoryTest {
         StoreInventory inventory = new StoreInventory();
         inventory.addInventoryItem(PRODUCT_NAME, of(2017,JUNE,30), 20);
         inventory.addInventoryItem(PRODUCT_NAME, of(2017,JUNE,29), 15);
-        inventory.addInventoryItem("marsBars", of(2017,MAY,20), 80);
+        inventory.addInventoryItem("marsBars", of(2017,AUGUST,20), 80);
 
         List<InventoryItem> items = inventory.getInventoryList();
 
@@ -170,13 +170,13 @@ public class StoreInventoryTest {
     @Test
     public void itShouldRemoveAnItemFromTheInventory() throws Exception {
         StoreInventory inventory = new StoreInventory();
-        inventory.addInventoryItem(PRODUCT_NAME, of(2017,MAY,14), 20);
-        inventory.addInventoryItem("sprite", of(2017,MAY,14), 12);
+        inventory.addInventoryItem(PRODUCT_NAME, of(2017,AUGUST,14), 20);
+        inventory.addInventoryItem("sprite", of(2017,AUGUST,14), 12);
 
         StoreInventory testInventory = new StoreInventory();
-        testInventory.addInventoryItem("sprite", of(2017,MAY,14), 12);
+        testInventory.addInventoryItem("sprite", of(2017,AUGUST,14), 12);
 
-        inventory.removeEntry(new Product("tomatoSoup", of(2017,MAY,14)));
+        inventory.removeEntry(new Product("tomatoSoup", of(2017,AUGUST,14)));
 
         assertThat(inventory.getInventoryList().size(), is(testInventory.getInventoryList().size()));
         assertThat(inventory.getInventoryList().get(0).toString(), is(testInventory.getInventoryList().get(0).toString()));
@@ -188,20 +188,20 @@ public class StoreInventoryTest {
         PriceList priceList = new PriceList();
         fillUpTheInventory(inventory);
         fillUpThePriceList(priceList);
-        inventory.addInventoryItem(PRODUCT_NAME, of(2017,MAY,14), 20);
-        inventory.addInventoryItem("sprite", of(2017,MAY,14), 12);
-        inventory.addInventoryItem("cola", of(2017,MAY,14), 23);
-        inventory.addInventoryItem("bread", of(2017,MAY,14), 9);
-        List<InventoryItem> listOfExpiredProducts = inventory.removeAllEntriesOfExpiryDate(of(2017,MAY,14));
+        inventory.addInventoryItem(PRODUCT_NAME, of(2017,AUGUST,14), 20);
+        inventory.addInventoryItem("sprite", of(2017,AUGUST,14), 12);
+        inventory.addInventoryItem("cola", of(2017,AUGUST,14), 23);
+        inventory.addInventoryItem("bread", of(2017,AUGUST,14), 9);
+        List<InventoryItem> listOfExpiredProducts = inventory.removeAllEntriesOfExpiryDate(of(2017,AUGUST,14));
 
         StoreInventory testInventory = new StoreInventory();
         fillUpTheInventory(testInventory);
 
         StoreInventory tempInventory = new StoreInventory();
-        tempInventory.addInventoryItem(PRODUCT_NAME, of(2017,MAY,14), 20);
-        tempInventory.addInventoryItem("sprite", of(2017,MAY,14), 12);
-        tempInventory.addInventoryItem("cola", of(2017,MAY,14), 23);
-        tempInventory.addInventoryItem("bread", of(2017,MAY,14), 9);
+        tempInventory.addInventoryItem(PRODUCT_NAME, of(2017,AUGUST,14), 20);
+        tempInventory.addInventoryItem("sprite", of(2017,AUGUST,14), 12);
+        tempInventory.addInventoryItem("cola", of(2017,AUGUST,14), 23);
+        tempInventory.addInventoryItem("bread", of(2017,AUGUST,14), 9);
         List<InventoryItem> testList = tempInventory.getInventoryList();
 
         assertThat(inventory.getInventoryList().size(), is(testInventory.getInventoryList().size()));
@@ -218,16 +218,16 @@ public class StoreInventoryTest {
     @Test
     public void itShouldRemove10OfTheTomatoSoupCansFromTheEntry() throws Exception {
         StoreInventory inventory = new StoreInventory();
-        inventory.addInventoryItem(PRODUCT_NAME, of(2017,MAY,25),30);
-        inventory.removeQuantityOfInventoryItem(PRODUCT_NAME, of(2017,MAY,25), 10);
-        assertThat(inventory.getProductOfExpiryDatesQuantity(PRODUCT_NAME, of(2017,MAY,25)), is(20));
-        inventory.removeQuantityOfInventoryItem(PRODUCT_NAME, of(2017,MAY,25),20);
+        inventory.addInventoryItem(PRODUCT_NAME, of(2017,AUGUST,25),30);
+        inventory.removeQuantityOfInventoryItem(PRODUCT_NAME, of(2017,AUGUST,25), 10);
+        assertThat(inventory.getProductOfExpiryDatesQuantity(PRODUCT_NAME, of(2017,AUGUST,25)), is(20));
+        inventory.removeQuantityOfInventoryItem(PRODUCT_NAME, of(2017,AUGUST,25),20);
     }
 
     @Test (expected = UnknownProductException.class)
     public void itShouldThrowAnExceptionIfITryToFindAProductThatIsNotThere() throws Exception {
         StoreInventory inventory = new StoreInventory();
-        inventory.addInventoryItem(PRODUCT_NAME, of(2017,MAY,25),30);
+        inventory.addInventoryItem(PRODUCT_NAME, of(2017,AUGUST,25),30);
         InventoryItem rusk = inventory.getInventoryItem(new Product("rusk", of(2017,JANUARY,12)));
         System.out.println(rusk);
     }
@@ -243,12 +243,12 @@ public class StoreInventoryTest {
 
     private void fillUpTheInventory(StoreInventory inventory) {
         inventory.addInventoryItem(PRODUCT_NAME, of(2017,JUNE,30), 20);
-        inventory.addInventoryItem(PRODUCT_NAME, of(2017,MAY,15), 15);
+        inventory.addInventoryItem(PRODUCT_NAME, of(2017,AUGUST,15), 15);
         inventory.addInventoryItem("beans", of(2017,AUGUST,10), 17);
         inventory.addInventoryItem("cola", of(2017,JUNE,30), 13);
         inventory.addInventoryItem("cola", of(2017,SEPTEMBER,30), 30);
         inventory.addInventoryItem("sprite", of(2017,DECEMBER,30), 28);
-        inventory.addInventoryItem("bread", of(2017,MAY,15), 28);
+        inventory.addInventoryItem("bread", of(2017,AUGUST,15), 28);
     }
 
 
