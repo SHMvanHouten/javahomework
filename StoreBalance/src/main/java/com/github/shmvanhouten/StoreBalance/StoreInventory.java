@@ -63,7 +63,7 @@ public class StoreInventory {
         return price.multiply(quantity);
     }
 
-    public Money getTotalValueOfAllProductsOfExpiryDate(LocalDate expiryDate, PriceList priceList, String currency) {
+    public Money getTotalValueOfAllProductsOfExpiryDate(LocalDate expiryDate, PriceList priceList, Currency currency) {
         Money totalValue = new Money("0", currency);
         for (Product product: inventoryList.keySet()) {
             if(product.getExpiryDate().equals(expiryDate)){
@@ -84,7 +84,7 @@ public class StoreInventory {
         return listOfAllProductsOfExpiryDate;
     }
 
-    public Money getInventoryTotalValue(PriceList priceList, String currency) {
+    public Money getInventoryTotalValue(PriceList priceList, Currency currency) {
         Money totalValue = new Money("0", currency);
         for(Product product: inventoryList.keySet()){
             totalValue = totalValue.add(this.getTotalValueOfProductsOfExpiryDate(product.getName(), product.getExpiryDate(), priceList));

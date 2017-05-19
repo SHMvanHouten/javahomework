@@ -3,12 +3,11 @@ package com.github.shmvanhouten.StoreBalance;
 import java.math.BigDecimal;
 import static com.google.common.base.Preconditions.checkArgument;
 
-
 public class Money {
     private final BigDecimal amount;
-    private final String currency;
+    private final Currency currency;
 
-    Money(String amount, String currency) throws IllegalArgumentException{
+    Money(String amount, Currency currency) throws IllegalArgumentException{
         BigDecimal parsedAmount = new BigDecimal(amount);
         checkArgument(parsedAmount.compareTo(BigDecimal.ZERO)>=0);
 
@@ -20,7 +19,7 @@ public class Money {
         return amount;
     }
 
-    public String getCurrency() {
+    public Currency getCurrency() {
         return currency;
     }
 
@@ -54,7 +53,7 @@ public class Money {
 
     @Override
     public String toString() {
-        return amount.toString().concat(" ").concat(currency);
+        return amount.toString().concat(" ").concat(currency.toString());
     }
 
 
