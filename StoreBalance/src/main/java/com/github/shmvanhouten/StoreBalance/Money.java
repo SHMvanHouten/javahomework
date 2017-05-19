@@ -8,12 +8,12 @@ public class Money {
     private final BigDecimal amount;
     private final String currency;
 
-    Money(String amountInput, String currencyInput) throws IllegalArgumentException{
-        BigDecimal parsedAmount = new BigDecimal(amountInput);
+    Money(String amount, String currency) throws IllegalArgumentException{
+        BigDecimal parsedAmount = new BigDecimal(amount);
         checkArgument(parsedAmount.compareTo(BigDecimal.ZERO)>=0);
 
-        amount = parsedAmount;
-        currency = currencyInput;
+        this.amount = parsedAmount;
+        this.currency = currency;
     }
 
     public BigDecimal getAmount() {
