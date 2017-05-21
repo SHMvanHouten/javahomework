@@ -1,6 +1,6 @@
 package com.github.shmvanhouten.practice.areaCalculator;
 
-class Rectangle extends Shape {
+class Rectangle implements Shape {
     private final double height;
     private final double width;
     Rectangle(double height, double width){

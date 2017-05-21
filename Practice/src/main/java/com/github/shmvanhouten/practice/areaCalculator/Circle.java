@@ -1,6 +1,6 @@
 package com.github.shmvanhouten.practice.areaCalculator;
 
-class Circle extends Shape{
+class Circle implements Shape{
     private final double radius;
     public Circle(double radius) {
         this.radius = radius;

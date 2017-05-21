@@ -1,4 +1,4 @@
 package com.github.shmvanhouten.practice.areaCalculator;
 
-class Shape {
+interface Shape {
 }

@@ -1,6 +1,6 @@
 package com.github.shmvanhouten.practice.areaCalculator;
 
-class Square extends Shape{
+class Square implements Shape{
     private final double side;
     Square(double side) {
         this.side = side;

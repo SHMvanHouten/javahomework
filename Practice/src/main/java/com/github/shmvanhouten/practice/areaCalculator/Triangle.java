@@ -1,6 +1,6 @@
 package com.github.shmvanhouten.practice.areaCalculator;
 
-class Triangle extends Shape{
+class Triangle implements Shape{
     private final double triangleBase;
     private final double triangleHeight;
     Triangle(double triangleBase, double triangleHeight) {

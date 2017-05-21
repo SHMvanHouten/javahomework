@@ -40,6 +40,5 @@ public class ReverseRotateChunksTest {
         String expected = "351864";
         String actual = scrambler.scrambleString("135468", 3);
         assertThat(actual, is(expected));
-        System.out.println(scrambler.revRot("135468",3));
     }
 }
