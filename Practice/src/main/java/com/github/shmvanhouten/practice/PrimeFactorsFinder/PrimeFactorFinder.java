@@ -7,7 +7,7 @@ public class PrimeFactorFinder {
     public Map<Long, Integer> getPrimeFactors(long number) {
         Map<Long, Integer> factors = new HashMap<>();
 
-        for (long i = 2; i <= number /2; i++) {
+        for (long i = 2; i <= Math.sqrt(number); i++) {
             while(number%i == 0){
                 factors.merge(i,1, Integer::sum);
                 number /= i;
