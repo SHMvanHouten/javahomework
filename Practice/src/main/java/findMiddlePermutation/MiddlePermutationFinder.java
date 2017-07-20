@@ -10,14 +10,28 @@ public class MiddlePermutationFinder {
         StringBuilder middlePermutationBuilder = new StringBuilder();
         int length = characters.size();
         if(length % 2 == 1){
-            middlePermutationBuilder.append(characters.get(length/2));
-            middlePermutationBuilder.append(characters.get((length/2) -1));
-            characters.remove(length/2);
-            characters.remove((length/2) -1);
-            for (int i = characters.size() - 1; i >= 0; i--) {
-                middlePermutationBuilder.append(characters.get(i));
-            }
+            handleSitutationIfStringSizeIsUneven(characters, middlePermutationBuilder, length);
+        }else{
+            handleSitutationIfStringSizeIsEven(characters, middlePermutationBuilder, length);
         }
         return middlePermutationBuilder.toString();
+    }
+
+    private void handleSitutationIfStringSizeIsEven(List<Character> characters, StringBuilder middlePermutationBuilder, int length) {
+        middlePermutationBuilder.append(characters.get((length/2)-1));
+        characters.remove((length/2) -1);
+        for (int i = characters.size() - 1; i >= 0; i--) {
+            middlePermutationBuilder.append(characters.get(i));
+        }
+    }
+
+    private void handleSitutationIfStringSizeIsUneven(List<Character> characters, StringBuilder middlePermutationBuilder, int length) {
+        middlePermutationBuilder.append(characters.get(length/2));
+        middlePermutationBuilder.append(characters.get((length/2) -1));
+        characters.remove(length/2);
+        characters.remove((length/2) -1);
+        for (int i = characters.size() - 1; i >= 0; i--) {
+            middlePermutationBuilder.append(characters.get(i));
+        }
     }
 }
