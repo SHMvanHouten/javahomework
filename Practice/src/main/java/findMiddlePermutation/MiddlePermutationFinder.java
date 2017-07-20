@@ -11,9 +11,11 @@ public class MiddlePermutationFinder {
         int length = characters.size();
         if(length % 2 == 1){
             middlePermutationBuilder.append(characters.get(length/2));
+            middlePermutationBuilder.append(characters.get((length/2) -1));
             characters.remove(length/2);
-            for (Character character : characters) {
-                middlePermutationBuilder.append(character);
+            characters.remove((length/2) -1);
+            for (int i = characters.size() - 1; i >= 0; i--) {
+                middlePermutationBuilder.append(characters.get(i));
             }
         }
         return middlePermutationBuilder.toString();

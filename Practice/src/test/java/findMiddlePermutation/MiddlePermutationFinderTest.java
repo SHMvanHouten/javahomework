@@ -16,4 +16,10 @@ public class MiddlePermutationFinderTest {
         MiddlePermutationFinder finder = new MiddlePermutationFinder();
         assertThat(finder.getMiddlePermutation("abc"), is("bac"));
     }
+
+    @Test
+    public void itShouldFindTheMiddlePermutationOfAllPermutationsOfABCDE() throws Exception {
+        MiddlePermutationFinder finder = new MiddlePermutationFinder();
+        assertThat(finder.getMiddlePermutation("abcde"), is("cbeda"));
+    }
 }
