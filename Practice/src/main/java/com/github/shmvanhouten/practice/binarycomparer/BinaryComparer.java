@@ -29,4 +29,8 @@ public class BinaryComparer {
         }
         return amountOfBitsToConvert;
     }
+
+//    public int getAmountOfBitsToConvert(int firstNumber, int secondNumber){
+//        return Integer.bitCount(firstNumber ^ secondNumber);
+//    }
 }
