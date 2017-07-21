@@ -2,6 +2,7 @@ package com.github.shmvanhouten.practice.binarycomparer;
 
 
 import java.util.List;
+import java.util.Objects;
 
 public class BinaryComparer {
     private final IntToBinaryConverter binaryConverter;
@@ -11,11 +12,18 @@ public class BinaryComparer {
     }
 
     public int getAmountOfBitsToConvert(int firstNumber, int secondNumber) {
-        List<Integer> firstBinaryNumber = binaryConverter.convertIntegerToBinary(firstNumber);
-        List<Integer> secondBinaryNumber = binaryConverter.convertIntegerToBinary(secondNumber);
+        List<Integer> firstBinaryNumber;
+        List<Integer> secondBinaryNumber;
+        if(firstNumber >= secondNumber) {
+            firstBinaryNumber = binaryConverter.convertIntegerToBinary(firstNumber);
+            secondBinaryNumber = binaryConverter.convertIntegerToBinary(secondNumber, firstBinaryNumber.size());
+        }else{
+            secondBinaryNumber = binaryConverter.convertIntegerToBinary(secondNumber);
+            firstBinaryNumber = binaryConverter.convertIntegerToBinary(firstNumber, secondBinaryNumber.size());
+        }
         int amountOfBitsToConvert = 0;
         for (int i = 0; i < firstBinaryNumber.size(); i++) {
-            if(firstBinaryNumber.get(i) != secondBinaryNumber.get(i)){
+            if(!Objects.equals(firstBinaryNumber.get(i), secondBinaryNumber.get(i))){
                 amountOfBitsToConvert++;
             }
         }

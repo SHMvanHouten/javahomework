@@ -26,4 +26,10 @@ public class BinaryComparerTest {
         BinaryComparer comparer = new BinaryComparer(new IntToBinaryConverter());
         assertThat(comparer.getAmountOfBitsToConvert(1,1), is(0));
     }
+
+    @Test
+    public void itShouldAlsoWorkForNumbersBiggerThan8Bits() throws Exception {
+        BinaryComparer comparer = new BinaryComparer(new IntToBinaryConverter());
+        assertThat(comparer.getAmountOfBitsToConvert(1231231,353), is(9));
+    }
 }
