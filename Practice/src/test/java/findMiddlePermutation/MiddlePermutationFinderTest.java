@@ -28,4 +28,10 @@ public class MiddlePermutationFinderTest {
         MiddlePermutationFinder finder = new MiddlePermutationFinder();
         assertThat(finder.getMiddlePermutation("abcde"), is("cbeda"));
     }
+
+    @Test
+    public void itShouldWorkForAnUnsortedStringToo() throws Exception {
+        MiddlePermutationFinder finder = new MiddlePermutationFinder();
+        assertThat(finder.getMiddlePermutation("abdxgc"), is("cxgdba"));
+    }
 }
