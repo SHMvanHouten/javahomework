@@ -9,7 +9,9 @@ import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
 import java.util.Properties;
 
+
 public class MailSender {
+
     public static void main(String[] args) {
         MailSender mailSender = new MailSender();
         mailSender.sendEmailToMySelf();
@@ -18,6 +20,8 @@ public class MailSender {
 
 
     private void sendEmailToMySelf() {
+
+        
         JavaMailSender mailSender = getJavaMailSender();
 
         MimeMessage message = mailSender.createMimeMessage();
@@ -25,7 +29,7 @@ public class MailSender {
         try{
             MimeMessageHelper helper = new MimeMessageHelper(message, true);
 
-            helper.setFrom("svanhouten@gmail.com");
+            helper.setFrom("sjoerdtestmail@gmail.com");
             helper.setTo("svanhouten@gmail.com");
             helper.setSubject("test");
             helper.setText("this is a test");
@@ -44,7 +48,7 @@ public class MailSender {
         JavaMailSenderImpl javaMailSender = new JavaMailSenderImpl();
         javaMailSender.setHost("smtp.gmail.com");
         javaMailSender.setPort(587);
-        javaMailSender.setUsername("svanhouten@gmail.com");
+        javaMailSender.setUsername("sjoerdtestmail@gmail.com");
         javaMailSender.setPassword(PasswordGetter.getGmail());
 
         Properties javaMailProperties = new Properties();
