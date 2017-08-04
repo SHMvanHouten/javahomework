@@ -11,6 +11,7 @@ import org.thymeleaf.context.Context;
 
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
+import java.util.Arrays;
 import java.util.Properties;
 
 
@@ -30,6 +31,8 @@ public class MailSender {
         try {
             MimeMessageHelper helper = new MimeMessageHelper(message, true);
             final Context ctx = new Context();
+            ctx.setVariable("name", "Sjoerd");
+            ctx.setVariable("technologies", Arrays.asList("Spring", "Jquery", "AngularJS"));
             String emailMessage = emailTemplateEngine.process("templates/test-email.html", ctx);
             helper.setFrom("sjoerdtestmail@gmail.com");
             helper.setTo("svanhouten@gmail.com");
