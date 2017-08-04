@@ -5,6 +5,8 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
+import java.util.Arrays;
+
 @SpringBootApplication
 public class MailApp implements CommandLineRunner {
 
@@ -21,6 +23,6 @@ public class MailApp implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-        mailSender.sendEmailToMySelf();
+        mailSender.sendEmailToMySelf("Sjoerd", Arrays.asList("Spring", "Jquery", "AngularJS"));
     }
 }
