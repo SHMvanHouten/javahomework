@@ -21,8 +21,6 @@ public class SpringMailConfig {
     }
 
     private ITemplateResolver htmlTemplateResolver() {
-        final ClassLoaderTemplateResolver templateResolver = new ClassLoaderTemplateResolver();
-//        templateResolver.setPrefix("/templates/");
-        return templateResolver;
+        return new ClassLoaderTemplateResolver();
     }
 }
