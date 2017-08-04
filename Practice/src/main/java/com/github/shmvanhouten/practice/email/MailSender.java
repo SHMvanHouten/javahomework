@@ -1,38 +1,40 @@
 package com.github.shmvanhouten.practice.email;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.FileSystemResource;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.mail.javamail.MimeMessageHelper;
+import org.springframework.stereotype.Component;
+import org.thymeleaf.TemplateEngine;
+import org.thymeleaf.context.Context;
 
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
 import java.util.Properties;
 
 
+@Component
 public class MailSender {
 
-    public static void main(String[] args) {
-        MailSender mailSender = new MailSender();
-        mailSender.sendEmailToMySelf();
-    }
+    @Autowired
+    private TemplateEngine emailTemplateEngine;
+
+    public void sendEmailToMySelf() {
 
 
-
-    private void sendEmailToMySelf() {
-
-        
         JavaMailSender mailSender = getJavaMailSender();
 
         MimeMessage message = mailSender.createMimeMessage();
 
-        try{
+        try {
             MimeMessageHelper helper = new MimeMessageHelper(message, true);
-
+            final Context ctx = new Context();
+            String emailMessage = emailTemplateEngine.process("email/templates/test-email", ctx);
             helper.setFrom("sjoerdtestmail@gmail.com");
             helper.setTo("svanhouten@gmail.com");
             helper.setSubject("test");
-            helper.setText("this is a test");
+            helper.setText(emailMessage, true);
 
             FileSystemResource file = new FileSystemResource("D:\\log.txt");
             helper.addAttachment(file.getFilename(), file);

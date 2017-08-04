@@ -13,7 +13,6 @@ public class FizzBuzz {
     }
 
     private String getPhraseToPrint(int i) {
-        StringBuilder
         if (i % 3 == 0 && i % 5 == 0) {
             System.out.println("fizzbuzz");
         } else if (i % 3 == 0) {
@@ -23,6 +22,7 @@ public class FizzBuzz {
         }else{
             System.out.println(i);
         }
+        return null;
     }
 
 }
