@@ -30,7 +30,7 @@ public class MailSender {
         try {
             MimeMessageHelper helper = new MimeMessageHelper(message, true);
             final Context ctx = new Context();
-            String emailMessage = emailTemplateEngine.process("email/templates/test-email", ctx);
+            String emailMessage = emailTemplateEngine.process("templates/test-email.html", ctx);
             helper.setFrom("sjoerdtestmail@gmail.com");
             helper.setTo("svanhouten@gmail.com");
             helper.setSubject("test");
