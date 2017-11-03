@@ -24,7 +24,10 @@ public class HowFarIsEasterBunnyHqCalculator {
 
     private void followInstruction(String instruction) {
         doTurn(instruction);
+        //get starting coordinates
         takeSteps(instruction);
+        //get ending coordinates and compare/store all coordinates from start to end
+        //if match, return the coordinates
     }
 
     private void doTurn(String instruction) {
