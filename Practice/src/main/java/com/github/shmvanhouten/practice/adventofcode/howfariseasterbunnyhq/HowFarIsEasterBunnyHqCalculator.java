@@ -5,30 +5,48 @@ import static java.lang.Math.abs;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 
 public class HowFarIsEasterBunnyHqCalculator {
 
     Walker walker = new Walker();
+    RouteTracker routeTracker = new RouteTracker();
 
     public Integer findDistanceToHq(String sequenceOfInstructions) {
 
         List<String> instructions = Arrays.asList(sequenceOfInstructions.split(", "));
 
         for (String instruction : instructions) {
+            // get starting point from walker
+            Integer xStart = walker.getX();
+            Integer yStart = walker.getY();
+
             followInstruction(instruction);
+
+            // get ending point from walker
+            Integer xEnd = walker.getX();
+            Integer yEnd = walker.getY();
+
+            // make a line with the starting point and ending point, compare it to stored lines
+            Optional<Coordinates> possibleBunnyHqLocation = routeTracker.processInstruction(xStart, xEnd, yStart, yEnd);
+            if(possibleBunnyHqLocation.isPresent()){
+                return calculateDistance(possibleBunnyHqLocation.get());
+            }
         }
 
-        return calculateDistance();
+        return calculateDistance(new Coordinates(walker.getX(), walker.getY()));
     }
+
 
 
     private void followInstruction(String instruction) {
         doTurn(instruction);
-        // get direction walker is facing or get both starting coordinates and ending coordinates
-        // get starting point from walker
+
         takeSteps(instruction);
-        // get ending point from walker
-        // make a line with the starting point and ending point, compare it to stored lines
+
+
+
+
         // if lines cross, get point where they cross and break out of the loop, return the coordinates
         // else (if lines don't cross) add the line to either vertical or horizontal lines map
     }
@@ -52,9 +70,9 @@ public class HowFarIsEasterBunnyHqCalculator {
         return valueOf(instruction.substring(1));
     }
 
+    private Integer calculateDistance(Coordinates coordinates) {
+        return abs(coordinates.getX()) + abs(coordinates.getY());
 
-    private int calculateDistance() {
-        return abs(walker.getX()) + abs(walker.getY());
     }
 
     public static void main(String[] args) {
