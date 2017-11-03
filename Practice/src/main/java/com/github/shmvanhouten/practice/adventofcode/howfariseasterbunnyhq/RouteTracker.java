@@ -13,7 +13,7 @@ public class RouteTracker {
         if (xStart.equals(xEnd)) {
             Line newVerticalLine = buildLine(yStart, yEnd);
             if (verticalLines.isEmpty() || horizontalLines.isEmpty()) {
-                verticalLines.put(xStart, Arrays.asList(newVerticalLine));
+                addLineToMap(xStart, newVerticalLine, verticalLines);
                 return Optional.empty();
             } else {
                 return compareAndProcessLine(xStart, newVerticalLine, verticalLines, horizontalLines);
@@ -21,7 +21,7 @@ public class RouteTracker {
         } else {
             Line newHorizontalLine = buildLine(xStart, xEnd);
             if (verticalLines.isEmpty() || horizontalLines.isEmpty()) {
-                horizontalLines.put(yStart, Arrays.asList(newHorizontalLine));
+                addLineToMap(yStart, newHorizontalLine, horizontalLines);
                 return Optional.empty();
             } else {
                 return compareAndProcessLine(yStart, newHorizontalLine, horizontalLines, verticalLines);
@@ -51,18 +51,18 @@ public class RouteTracker {
             return Optional.of(new Coordinates(linePosition, possibleCrossingPoint.get()));
         }
 
-        addLineToExistingLineMap(linePosition, newVerticalLine, parallelLines);
+        addLineToNonEmptyLineMap(linePosition, newVerticalLine, parallelLines);
 
         return Optional.empty();
     }
 
-    private void addLineToExistingLineMap(Integer linePosition, Line newVerticalLine, Map<Integer, List<Line>> existingLineMap) {
+    private void addLineToNonEmptyLineMap(Integer linePosition, Line newLine, Map<Integer, List<Line>> existingLineMap) {
         if (existingLineMap.containsKey(linePosition)) {
             List<Line> lines = existingLineMap.get(linePosition);
-            lines.add(newVerticalLine);
+            lines.add(newLine);
             existingLineMap.put(linePosition, lines);
         } else {
-            existingLineMap.put(linePosition, Arrays.asList(newVerticalLine));
+            addLineToMap(linePosition, newLine, existingLineMap);
         }
     }
 
@@ -80,9 +80,15 @@ public class RouteTracker {
         return Optional.empty();
     }
 
-    private Optional<Integer> compareLineToParallelLines(Integer linePosition, Line newLine, Map<Integer, List<Line>> perpendicularLines) {
+    private Optional<Integer> compareLineToParallelLines(Integer linePosition, Line newLine, Map<Integer, List<Line>> parallelLines) {
         return Optional.empty();
         //todo: finish this.
+    }
+
+    private void addLineToMap(Integer linePosition, Line newLine, Map<Integer, List<Line>> mapToAddTo) {
+        List<Line> lines = new LinkedList<>();
+        lines.add(newLine);
+        mapToAddTo.put(linePosition, lines);
     }
 
 }
